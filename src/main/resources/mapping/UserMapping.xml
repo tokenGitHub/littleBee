@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littleBee.bee.dao.UserDao" >
+    <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.User" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="DATE" />
+        <result column="degree" property="degree" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="DATE" />
+    </resultMap>
+
+    <insert id="insertUser">
+         insert into user set user_name = #{user.userName},
+                              password  = #{user.password},
+                              email     = #{user.email},
+                              birthday  = #{user.birthday},
+                              degree    = #{user.degree},
+                              address   = #{user.address},
+                              real_name = #{user.realName},
+                              create_time = #{user.createTime}
+    </insert>
+</mapper>
