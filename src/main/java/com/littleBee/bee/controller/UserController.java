@@ -1,18 +1,24 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.User;
+import com.littleBee.bee.service.EmailService;
 import com.littleBee.bee.service.UserService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
 @RestController
+@Log
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    EmailService emailService;
 
     @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
@@ -35,6 +41,17 @@ public class UserController {
         User user = parseUserByData("testName","password","email",
                 date,"本科","中国","王大炮",date);
         userService.insertUser(user);
+        return "OK";
+    }
+
+    @GetMapping("verification")
+    public Object sendVerification(@RequestParam String toAddress){
+        try {
+            String verification = emailService.sendSimpleMail(toAddress);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return "fial : 邮箱不存在？";
+        }
         return "OK";
     }
 
