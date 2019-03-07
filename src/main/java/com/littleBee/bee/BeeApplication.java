@@ -1,4 +1,4 @@
-package com.lettlebee.bee;
+package com.littleBee.bee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.lettlebee.bee;
+package com.littleBee.bee;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
