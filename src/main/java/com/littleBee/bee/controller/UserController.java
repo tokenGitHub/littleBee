@@ -2,6 +2,7 @@ package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.service.EmailService;
+import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class UserController {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    RedisService redisService;
+
     @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
                               @RequestParam String password,
@@ -27,12 +31,18 @@ public class UserController {
                               @RequestParam Date birthday,
                               @RequestParam String degree,
                               @RequestParam String address,
-                              @RequestParam String realName){
+                              @RequestParam String realName,
+                              @RequestParam String verification){
         Date date = new Date(new java.util.Date().getTime());
-        User user = parseUserByData(userName, password, email,
-                birthday, degree, address, realName,date);
-        userService.insertUser(user);
-        return user;
+
+        if(verification.equals(redisService.getEmailVerificationCode(email))) {
+            User user = parseUserByData(userName, password, email,
+                    birthday, degree, address, realName, date);
+            userService.insertUser(user);
+            return user;
+        }else {
+            return "fail:验证码输入错误，或者已经过期";
+        }
     }
 
     @GetMapping("test")
@@ -48,6 +58,7 @@ public class UserController {
     public Object sendVerification(@RequestParam String toAddress){
         try {
             String verification = emailService.sendSimpleMail(toAddress);
+            redisService.saveEmailVerificationCode(toAddress, verification);
         }catch (Exception e){
             log.info(e.getMessage());
             return "fial : 邮箱不存在？";
