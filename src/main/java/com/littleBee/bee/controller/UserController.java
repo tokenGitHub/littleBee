@@ -45,14 +45,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("test")
-    public Object testUserRegister(){
-        Date date = new Date(new java.util.Date().getTime());
-        User user = parseUserByData("testName","password","email",
-                date,"本科","中国","王大炮",date);
-        userService.insertUser(user);
-        return "OK";
+    @GetMapping("login")
+    public Object login(@RequestParam String userName, @RequestParam String password){
+        String userCode = userService.userLogin(userName, password);
+        if(userCode != null){
+            redisService.setUserLoginCode(userName, userCode);
+        }
+        return userCode;
     }
+
+//    @GetMapping("test")
+//    public Object testUserRegister(){
+//        Date date = new Date(new java.util.Date().getTime());
+//        User user = parseUserByData("testName","password","email",
+//                date,"本科","中国","王大炮",date);
+//        userService.insertUser(user);
+//        return "OK";
+//    }
 
     @GetMapping("verification")
     public Object sendVerification(@RequestParam String toAddress){
