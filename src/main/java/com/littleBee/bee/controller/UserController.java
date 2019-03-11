@@ -4,6 +4,7 @@ import com.littleBee.bee.domain.User;
 import com.littleBee.bee.service.EmailService;
 import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.UserService;
+import com.littleBee.bee.utills.JsonUtils;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +40,9 @@ public class UserController {
             User user = parseUserByData(userName, password, email,
                     birthday, degree, address, realName, date);
             userService.insertUser(user);
-            return user;
+            return JsonUtils.getSuccessResult(user);
         }else {
-            return "fail:验证码输入错误，或者已经过期";
+            return JsonUtils.getFailResult("Exception : 验证码输入错误，或者已经过期");
         }
     }
 
@@ -50,8 +51,11 @@ public class UserController {
         String userCode = userService.userLogin(userName, password);
         if(userCode != null){
             redisService.setUserLoginCode(userName, userCode);
+            return JsonUtils.getSuccessResult(userCode);
+        }else{
+            return JsonUtils.getFailResult(new Exception("Exception : 账号或密码错误"));
         }
-        return userCode;
+
     }
 
 //    @GetMapping("test")
@@ -70,9 +74,9 @@ public class UserController {
             redisService.saveEmailVerificationCode(toAddress, verification);
         }catch (Exception e){
             log.info(e.getMessage());
-            return "fial : 邮箱不存在？";
+            return JsonUtils.getFailResult("Exception : 邮箱不存在");
         }
-        return "OK";
+        return JsonUtils.getSuccessResult("OK");
     }
 
     private User parseUserByData(String userName,
