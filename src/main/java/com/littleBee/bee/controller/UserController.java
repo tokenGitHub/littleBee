@@ -55,17 +55,7 @@ public class UserController {
         }else{
             return JsonUtils.getFailResult(new Exception("Exception : 账号或密码错误"));
         }
-
     }
-
-//    @GetMapping("test")
-//    public Object testUserRegister(){
-//        Date date = new Date(new java.util.Date().getTime());
-//        User user = parseUserByData("testName","password","email",
-//                date,"本科","中国","王大炮",date);
-//        userService.insertUser(user);
-//        return "OK";
-//    }
 
     @GetMapping("verification")
     public Object sendVerification(@RequestParam String toAddress){
@@ -74,11 +64,15 @@ public class UserController {
             redisService.saveEmailVerificationCode(toAddress, verification);
         }catch (Exception e){
             log.info(e.getMessage());
-            return JsonUtils.getFailResult("Exception : 邮箱不存在");
+            return JsonUtils.getFailResult("Exception : 邮件发送失败");
         }
         return JsonUtils.getSuccessResult("OK");
     }
 
+    @GetMapping("get")
+    public Object getString(@RequestParam String userName){
+        return JsonUtils.getSuccessResult(redisService.getEmailVerificationCode(userName));
+    }
     private User parseUserByData(String userName,
                                String password,
                                String email,
