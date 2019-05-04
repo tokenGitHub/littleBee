@@ -1,18 +1,17 @@
 package com.littleBee.bee.controller;
 
+import com.littleBee.bee.domain.FriendAddRecord;
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.dto.LoginMessage;
 import com.littleBee.bee.service.EmailService;
+import com.littleBee.bee.service.FriendAddRecordService;
 import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.UserService;
 import com.littleBee.bee.utills.JsonUtils;
 import lombok.extern.java.Log;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +27,9 @@ public class UserController {
 
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    FriendAddRecordService friendAddRecordService;
 
     @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
@@ -92,6 +94,21 @@ public class UserController {
         }else{
             return JsonUtils.getFailResult("没有输入正确的参数,必须有用户名和电话的其中之一");
         }
+    }
+
+    @PostMapping("addFriend")
+    public Object addFriend(@RequestHeader("userId") int userId, @RequestParam("friendId") int friendId, @RequestParam("context") String context){
+        User user = userService.selectUserById(userId);
+        User friend = userService.selectUserById(friendId);
+        if(user == null || friend == null){
+            return JsonUtils.getFailResult(new Exception("用户不存在或者要添加的用户不存在"));
+        }
+        FriendAddRecord record = new FriendAddRecord();
+        record.setContext(context);
+        record.setFriendUserId(friendId);
+        record.setUserId(userId);
+        friendAddRecordService.saveRecord(record);
+        return JsonUtils.getSuccessResult("好友请求已记录");
     }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
