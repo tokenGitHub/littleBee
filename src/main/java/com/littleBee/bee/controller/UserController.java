@@ -49,7 +49,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     public Object login(@RequestParam String userName, @RequestParam String password){
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
@@ -61,7 +61,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("verification")
+    @PostMapping("verification")
     public Object sendVerification(@RequestParam String toAddress){
         try {
             String verification = emailService.sendSimpleMail(toAddress);
@@ -73,7 +73,7 @@ public class UserController {
         return JsonUtils.getSuccessResult("OK");
     }
 
-    @GetMapping("listFriend")
+    @PostMapping("listFriend")
     public Object listFriendByUserId(@RequestParam("id") int id){
         User user = userService.selectUserById(id);
         if(user == null ){
@@ -126,6 +126,7 @@ public class UserController {
     public Object listFriendRequest(@RequestHeader("userId") int userId){
         return friendAddRecordService.listFriendAddRecordByUserId(userId);
     }
+
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
