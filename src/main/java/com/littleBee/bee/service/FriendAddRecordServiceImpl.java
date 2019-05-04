@@ -4,9 +4,12 @@ import com.littleBee.bee.dao.FriendAddRecordDao;
 import com.littleBee.bee.dao.FriendDao;
 import com.littleBee.bee.domain.Friend;
 import com.littleBee.bee.domain.FriendAddRecord;
+import com.littleBee.bee.dto.FriendRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class FriendAddRecordServiceImpl implements FriendAddRecordService{
@@ -44,4 +47,11 @@ public class FriendAddRecordServiceImpl implements FriendAddRecordService{
         }
         friendAddRecordDao.updateRecord(record);
     }
+
+    @Override
+    @Transactional
+    public List<FriendRecord> listFriendAddRecordByUserId(int userId){
+        return friendAddRecordDao.listFriendRecordByUserId(userId);
+    }
+
 }

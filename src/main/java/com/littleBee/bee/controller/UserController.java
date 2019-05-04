@@ -122,6 +122,11 @@ public class UserController {
         return JsonUtils.getSuccessResult("成功");
     }
 
+    @PostMapping("listFriendRequest")
+    public Object listFriendRequest(@RequestHeader("userId") int userId){
+        return friendAddRecordService.listFriendAddRecordByUserId(userId);
+    }
+
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
         user.setUserName(userName);
