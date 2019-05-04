@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface FriendAddRecordDao {
     void insertRecord(@Param("record")FriendAddRecord record);
+    FriendAddRecord selectFriendAddRecordById(@Param("id") int id);
+    void updateRecord(@Param("record") FriendAddRecord record);
 }

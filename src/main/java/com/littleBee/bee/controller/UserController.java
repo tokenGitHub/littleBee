@@ -111,6 +111,17 @@ public class UserController {
         return JsonUtils.getSuccessResult("好友请求已记录");
     }
 
+    @PostMapping("friendVerification")
+    public Object friendVerification(@RequestParam("recordId") int id, int agreeOrNot){
+        FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(id);
+        if(record == null){
+            return JsonUtils.getFailResult( new Exception("好友请求不存在") );
+        }
+
+        friendAddRecordService.saveFriend(record, agreeOrNot);
+        return JsonUtils.getSuccessResult("成功");
+    }
+
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
         user.setUserName(userName);

@@ -13,4 +13,8 @@
                               friend_user_id  = #{record.friendUserId},
                               context  = #{record.context}
     </insert>
+
+    <update id="updateRecord">
+        update friend_add_record set status = #{status} where id = #{record.id}
+    </update>
 </mapper>
