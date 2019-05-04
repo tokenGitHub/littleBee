@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littleBee.bee.dao.MessageDao" >
+    <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.Message" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="sendUserId" property="send_user_id" jdbcType="INTEGER" />
+        <result column="receiveUserId" property="receive_user_id" jdbcType="INTEGER" />
+        <result column="context" property="context" jdbcType="VARCHAR" />
+        <result column="sendTime" property="send_time" jdbcType="DATETIME" />
+    </resultMap>
+
+    <insert id="insertFriend">
+         insert into friend set user_id = #{record.userId},
+                              friend_user_id  = #{record.friendUserId}
+    </insert>
+
+    <select id="listUserChatMessage" resultMap="BaseResultMap">
+        select * from message where (
+        send_user_id = #{userId}
+            and
+        receive_user_id = #{targetUserId}
+        ) or (
+        receive_user_id = #{userId}
+        and
+        send_user_id = #{targetUserId}
+        )
+        order by send_time
+    </select>
+</mapper>

@@ -1,12 +1,10 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.FriendAddRecord;
+import com.littleBee.bee.domain.Message;
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.dto.LoginMessage;
-import com.littleBee.bee.service.EmailService;
-import com.littleBee.bee.service.FriendAddRecordService;
-import com.littleBee.bee.service.RedisService;
-import com.littleBee.bee.service.UserService;
+import com.littleBee.bee.service.*;
 import com.littleBee.bee.utills.JsonUtils;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,9 @@ public class UserController {
 
     @Autowired
     FriendAddRecordService friendAddRecordService;
+
+    @Autowired
+    MessageService messageService;
 
     @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
@@ -127,6 +128,10 @@ public class UserController {
         return friendAddRecordService.listFriendAddRecordByUserId(userId);
     }
 
+    @PostMapping("listUserChatMessage")
+    public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
+        return messageService.listUserChatMessage(userId, targetUserId);
+    }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
