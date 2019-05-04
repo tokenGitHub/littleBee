@@ -6,22 +6,23 @@
         <result column="user_name" property="userName" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
         <result column="email" property="email" jdbcType="VARCHAR" />
-        <result column="birthday" property="birthday" jdbcType="DATE" />
-        <result column="degree" property="degree" jdbcType="VARCHAR" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
         <result column="real_name" property="realName" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="DATE" />
+        <result column="identity" property="identity" jdbcType="INTEGER" />
+        <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="industry" property="industry" jdbcType="VARCHAR" />
+        <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
     </resultMap>
 
     <insert id="insertUser">
          insert into user set user_name = #{user.userName},
                               password  = #{user.password},
                               email     = #{user.email},
-                              birthday  = #{user.birthday},
-                              degree    = #{user.degree},
-                              address   = #{user.address},
                               real_name = #{user.realName},
-                              create_time = #{user.createTime}
+                              real_name = #{user.realName},
+                              identity = #{user.identity},
+                              company_name = #{user.companyName},
+                              industry = #{user.industry},
+                              company_introduce = #{user.companyIntroduce},
     </insert>
 
     <select id="userLogin" resultType="String">

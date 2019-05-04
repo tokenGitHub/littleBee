@@ -13,4 +13,8 @@ public class User {
     private String realName;
     private String tele;
     private int sex;
+    private int identity;
+    private String companyName;
+    private String industry;
+    private String companyIntroduce;
 }
