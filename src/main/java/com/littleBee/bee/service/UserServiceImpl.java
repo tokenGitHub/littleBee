@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
     public User selectUserByUserName(String userName){
         return userDao.selectUserByUserName(userName);
     }
+
+    @Override
+    @Transactional
+    public User selectUserById(int id){
+        return userDao.selectUserById(id);
+    }
 }

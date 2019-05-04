@@ -31,4 +31,9 @@
     <select id="selectUserByUserName" resultType="User">
         select * from User where user_name= #{userName}
     </select>
+
+    <select id="selectUserById" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
 </mapper>

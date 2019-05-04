@@ -6,4 +6,5 @@ public interface UserService {
     void insertUser(User user);
     String userLogin(String userName, String password);
     User selectUserByUserName(String userName);
+    User selectUserById(int id);
 }

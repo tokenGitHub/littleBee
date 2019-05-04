@@ -9,4 +9,5 @@ public interface UserDao {
     void insertUser(@Param("user") User user);
     String userLogin(@Param("userName") String userName);
     User selectUserByUserName(@Param("userName") String userName);
+    User selectUserById(@Param("id") int id);
 }
