@@ -141,6 +141,7 @@ public class UserController {
         user.setRealName(realName);
         user.setTele(tele);
         user.setSex(sex);
+        user.setIdentity(0);
         return user;
     }
 }
