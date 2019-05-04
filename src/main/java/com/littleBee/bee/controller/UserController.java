@@ -1,6 +1,7 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.User;
+import com.littleBee.bee.dto.LoginMessage;
 import com.littleBee.bee.service.EmailService;
 import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.UserService;
@@ -29,16 +30,13 @@ public class UserController {
     public Object userRegister(@RequestParam String userName,
                               @RequestParam String password,
                               @RequestParam String email,
-                              @RequestParam Date birthday,
-                              @RequestParam String degree,
-                              @RequestParam String address,
                               @RequestParam String realName,
+                              @RequestParam String para,
+                              @RequestParam int sex,
                               @RequestParam String verification){
-        Date date = new Date(new java.util.Date().getTime());
 
         if(verification.equals(redisService.getEmailVerificationCode(email))) {
-            User user = parseUserByData(userName, password, email,
-                    birthday, degree, address, realName, date);
+            User user = parseUserByData(userName, password, email, realName, sex, para);
             userService.insertUser(user);
             return JsonUtils.getSuccessResult(user);
         }else {
@@ -49,9 +47,10 @@ public class UserController {
     @GetMapping("login")
     public Object login(@RequestParam String userName, @RequestParam String password){
         String userCode = userService.userLogin(userName, password);
+        User user = userService.selectUserByUserName(userName);
         if(userCode != null){
             redisService.setUserLoginCode(userName, userCode);
-            return JsonUtils.getSuccessResult(userCode);
+            return JsonUtils.getSuccessResult(new LoginMessage(user.getId(), userCode));
         }else{
             return JsonUtils.getFailResult(new Exception("Exception : 账号或密码错误"));
         }
@@ -73,23 +72,15 @@ public class UserController {
     public Object getString(@RequestParam String userName){
         return JsonUtils.getSuccessResult(redisService.getEmailVerificationCode(userName));
     }
-    private User parseUserByData(String userName,
-                               String password,
-                               String email,
-                               Date birthday,
-                               String degree,
-                               String address,
-                               String realName,
-                               Date createTime){
+    
+    private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
         user.setUserName(userName);
         user.setEmail(email);
-        user.setAddress(address);
         user.setPassword(password);
-        user.setBirthday(birthday);
-        user.setDegree(degree);
         user.setRealName(realName);
-        user.setCreateTime(createTime);
+        user.setTele(tele);
+        user.setSex(sex);
         return user;
     }
 }
