@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,4 +47,11 @@ public class UserServiceImpl implements UserService {
     public User selectUserById(int id){
         return userDao.selectUserById(id);
     }
+
+    @Override
+    @Transactional
+    List<User> listFriendByUserId(int id){
+        return userDao.listFriendByUserId(id);
+    }
+
 }

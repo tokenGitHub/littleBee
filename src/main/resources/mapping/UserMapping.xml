@@ -36,4 +36,8 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="listFriendByUserId" resultMap="BaseResultMap">
+        select u.* from user u,friend f where u.id = friend.user_id and u.id=#{id}
+    </select>
+
 </mapper>

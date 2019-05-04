@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @RestController
 @Log
@@ -66,6 +67,16 @@ public class UserController {
             return JsonUtils.getFailResult("Exception : 邮件发送失败");
         }
         return JsonUtils.getSuccessResult("OK");
+    }
+
+    @GetMapping("listFriend")
+    public Object listFriendByUserId(@RequestParam("id") int id){
+        User user = userService.selectUserById(id);
+        if(user == null ){
+            return JsonUtils.getFailResult(new Exception("用户不存在"));
+        }
+        List<User> userList = userService.listFriendByUserId(id);
+        return JsonUtils.getSuccessResult(userList);
     }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
