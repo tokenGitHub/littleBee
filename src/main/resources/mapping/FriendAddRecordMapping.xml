@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littleBee.bee.dao.UserDao" >
+    <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.FriendAddRecord" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="userId" property="user_id" jdbcType="INTEGER" />
+        <result column="friendUserId" property="friend_user_id" jdbcType="INTEGER" />
+        <result column="context" property="context" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertRecord">
+         insert into friend_add_record set user_id = #{record.userId},
+                              friend_user_id  = #{record.friendUserId},
+                              context  = #{record.context}
+    </insert>
+</mapper>
