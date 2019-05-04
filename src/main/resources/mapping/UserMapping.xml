@@ -27,4 +27,8 @@
     <select id="userLogin" resultType="String">
         select password from user where user_name = #{userName}
     </select>
+
+    <select id="selectUserByUserName" resultType="User">
+        select * from User where user_name= #{userName}
+    </select>
 </mapper>

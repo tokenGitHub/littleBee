@@ -68,11 +68,6 @@ public class UserController {
         return JsonUtils.getSuccessResult("OK");
     }
 
-    @GetMapping("get")
-    public Object getString(@RequestParam String userName){
-        return JsonUtils.getSuccessResult(redisService.getEmailVerificationCode(userName));
-    }
-    
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
         User user = new User();
         user.setUserName(userName);
