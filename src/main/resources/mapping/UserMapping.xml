@@ -40,4 +40,11 @@
         select u.* from user u,friend f where u.id = friend.user_id and u.id=#{id}
     </select>
 
+    <select id="listUserByUserTele" resultMap="BaseResultMap">
+        select * from user where tele = #{tele}
+    </select>
+
+    <select id="listUserByRealName" resultMap="BaseResultMap">
+        select * from user where real_name  = #{realName}
+    </select>
 </mapper>

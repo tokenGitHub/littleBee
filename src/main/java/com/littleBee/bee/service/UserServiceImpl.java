@@ -50,8 +50,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    List<User> listFriendByUserId(int id){
+    public List<User> listFriendByUserId(int id){
         return userDao.listFriendByUserId(id);
+    }
+
+    @Override
+    @Transactional
+    public List<User> listUserByUserTele(String tele){
+        return userDao.listUserByUserTele(tele);
+    }
+
+    public List<User> listUserByRealName(String realName){
+        return userDao.listUserByRealName(realName);
     }
 
 }

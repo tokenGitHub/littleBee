@@ -7,7 +7,9 @@ import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.UserService;
 import com.littleBee.bee.utills.JsonUtils;
 import lombok.extern.java.Log;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -77,6 +79,19 @@ public class UserController {
         }
         List<User> userList = userService.listFriendByUserId(id);
         return JsonUtils.getSuccessResult(userList);
+    }
+
+    @PostMapping("findUser")
+    public Object findUser( @RequestParam("userName")  String realName, String tele){
+        if(realName != null){
+            List<User> userList = userService.listUserByRealName(realName);
+            return JsonUtils.getSuccessResult(userList);
+        }else if(tele != null){
+            List<User> userList = userService.listUserByUserTele(tele);
+            return JsonUtils.getSuccessResult(userList);
+        }else{
+            return JsonUtils.getFailResult("没有输入正确的参数,必须有用户名和电话的其中之一");
+        }
     }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){

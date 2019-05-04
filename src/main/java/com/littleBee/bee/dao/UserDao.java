@@ -13,4 +13,6 @@ public interface UserDao {
     User selectUserByUserName(@Param("userName") String userName);
     User selectUserById(@Param("id") int id);
     List<User> listFriendByUserId(@Param("id") int id);
+    List<User> listUserByUserTele(@Param("tele") String tele);
+    List<User> listUserByRealName(@Param("realName") String realName);
 }

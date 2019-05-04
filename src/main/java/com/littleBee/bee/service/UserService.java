@@ -10,4 +10,6 @@ public interface UserService {
     User selectUserByUserName(String userName);
     User selectUserById(int id);
     List<User> listFriendByUserId(int id);
+    List<User> listUserByUserTele(String tele);
+    List<User> listUserByRealName(String realName);
 }
