@@ -21,19 +21,19 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
-    RedisService redisService;
+    private RedisService redisService;
 
     @Autowired
-    FriendAddRecordService friendAddRecordService;
+    private FriendAddRecordService friendAddRecordService;
 
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     @PostMapping("register")
     public Object userRegister(@RequestParam String userName,

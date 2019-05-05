@@ -15,10 +15,10 @@ import java.util.List;
 public class FriendAddRecordServiceImpl implements FriendAddRecordService{
 
     @Autowired
-    FriendAddRecordDao friendAddRecordDao;
+    private FriendAddRecordDao friendAddRecordDao;
 
     @Autowired
-    FriendDao friendDao;
+    private FriendDao friendDao;
 
     @Override
     @Transactional
