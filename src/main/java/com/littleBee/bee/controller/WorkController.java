@@ -4,10 +4,7 @@ import com.littleBee.bee.domain.Work;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,11 @@ public class WorkController {
     public Object listAllWork(){
         List<Work> workList = workService.listAllWork();
         return JsonUtils.getSuccessResult(workList);
+    }
+
+    @PostMapping("listWorkRecord")
+    public Object listWorkRecord(@RequestHeader("userId") int userId){
+        List<Work> list = workService.listWorkRecord(userId);
+        return JsonUtils.getSuccessResult(list);
     }
 }

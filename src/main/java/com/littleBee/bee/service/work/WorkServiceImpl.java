@@ -29,4 +29,10 @@ public class WorkServiceImpl implements WorkService {
     public List<Work> listAllWork(){
         return workDao.listAllWork();
     }
+
+    @Override
+    @Transactional
+    public List<Work> listWorkRecord(int userId){
+        return workDao.listWorkRecord(userId);
+    }
 }

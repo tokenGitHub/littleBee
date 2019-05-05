@@ -8,4 +8,5 @@ public interface WorkService {
     List<Work> listWorkByPositionAndIdentity(String province, String city, int identity);
     List<Work> listAllFullTimeWork();
     List<Work> listAllWork();
+    List<Work> listWorkRecord(int userId);
 }

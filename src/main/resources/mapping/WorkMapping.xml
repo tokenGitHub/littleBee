@@ -34,4 +34,9 @@
     <select id="listAllWork" resultMap="BaseResultMap">
         select * from work where status = 1
     </select>
+
+    <select id="listWorkRecord" resultMap="BaseResultMap">
+        select work.* from work, work_record where work.id = work_record.work_id and work_record.user_id = #{userId}
+    </select>
+
 </mapper>
