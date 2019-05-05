@@ -24,5 +24,6 @@
             and city = #{city}
         </if>
         and identity  = #{identity}
+        and status = 1
     </select>
 </mapper>
