@@ -10,4 +10,5 @@ import java.util.List;
 public interface WorkDao {
     List<Work> listWorkByPositionAndIdentity(@Param("province") String province, @Param("city") String city, @Param("identity") int identity);
     List<Work> listAllFullTimeWork();
+    List<Work> listAllWork();
 }

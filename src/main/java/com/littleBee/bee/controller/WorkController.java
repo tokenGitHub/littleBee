@@ -29,4 +29,10 @@ public class WorkController {
         List<Work> workList = workService.listAllFullTimeWork();
         return JsonUtils.getSuccessResult(workList);
     }
+
+    @PostMapping("listAllWork")
+    public Object listAllWork(){
+        List<Work> workList = workService.listAllWork();
+        return JsonUtils.getSuccessResult(workList);
+    }
 }

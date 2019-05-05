@@ -20,7 +20,13 @@ public class WorkServiceImpl implements WorkService {
         return workDao.listWorkByPositionAndIdentity(province, city, identity);
     }
 
+    @Override
+    @Transactional
     public List<Work> listAllFullTimeWork(){
         return workDao.listAllFullTimeWork();
+    }
+
+    public List<Work> listAllWork(){
+        return workDao.listAllWork();
     }
 }
