@@ -10,6 +10,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -131,6 +132,16 @@ public class UserController {
     @PostMapping("listUserChatMessage")
     public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
         return messageService.listUserChatMessage(userId, targetUserId);
+    }
+
+    @PostMapping("sendMessage")
+    public Object sendMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
+        User user = userService.selectUserById(targetUserId);
+        if(user == null){
+            return JsonUtils.getFailResult(new Exception("目标用户不存在"));
+        }
+        messageService.sendMessage(userId, targetUserId, context);
+        return JsonUtils.getSuccessResult(null);
     }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){

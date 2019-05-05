@@ -9,9 +9,11 @@
         <result column="sendTime" property="send_time" jdbcType="DATETIME" />
     </resultMap>
 
-    <insert id="insertFriend">
-         insert into friend set user_id = #{record.userId},
-                              friend_user_id  = #{record.friendUserId}
+    <insert id="insertMessage">
+         insert into message set send_user_id = #{sendUserId},
+                              receive_user_id  = #{targetUserId},
+                              context  = #{context},
+                              send_time  = #{date}
     </insert>
 
     <select id="listUserChatMessage" resultMap="BaseResultMap">
