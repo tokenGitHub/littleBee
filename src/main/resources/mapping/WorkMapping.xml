@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littleBee.bee.dao.WorkDao" >
+    <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.Work" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="identity" property="identity" jdbcType="INTEGER" />
+        <result column="need_person" property="needPerson" jdbcType="INTEGER" />
+        <result column="wages" property="wages" jdbcType="VARCHAR" />
+        <result column="work_time" property="workTime" jdbcType="INTEGER" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="duty" property="duty" jdbcType="VARCHAR" />
+        <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+        <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+        <result column="tele" property="tele" jdbcType="VARCHAR" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
+        select * from work where province = #{province}
+        <if test="city != null">
+            and city = #{city}
+        </if>
+        and identity  = #{identity}
+    </select>
+</mapper>
