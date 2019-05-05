@@ -9,4 +9,6 @@ public interface WorkService {
     List<Work> listAllFullTimeWork();
     List<Work> listAllWork();
     List<Work> listWorkRecord(int userId);
+
+    void saveWork(Work work);
 }

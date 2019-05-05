@@ -12,4 +12,6 @@ public interface WorkDao {
     List<Work> listAllFullTimeWork();
     List<Work> listAllWork();
     List<Work> listWorkRecord(@Param("userId") int userId);
+
+    void saveWork(@Param("work") Work work);
 }

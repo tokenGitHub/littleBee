@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan
 public class Work {
     private int id;
-    private int user_id;
+    private int userId;
     private int identity;
-    private int need_person;
+    private int needPerson;
     private String wages;
     private String workTime;
     private String province;

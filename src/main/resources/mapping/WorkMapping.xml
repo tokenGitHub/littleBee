@@ -18,6 +18,21 @@
         <result column="status" property="status" jdbcType="INTEGER" />
     </resultMap>
 
+    <insert id="saveWork">
+        insert into work set user_id = #{work.userId},
+                             identity = #{work.identity}
+                             need_person = #{work.needPerson}
+                             wages = #{work.wages}
+                             work_time = #{work.workTime}
+                             province = #{work.province}
+                             city = #{work.city}
+                             duty = #{work.duty}
+                             requirement = #{work.requirement}
+                             contacts = #{work.contacts}
+                             tele = #{work.tele}
+                             remarks = #{work.remarks}
+    </insert>
+
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
         select * from work where province = #{province}
         <if test="city != null">
