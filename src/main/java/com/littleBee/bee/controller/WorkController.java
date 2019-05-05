@@ -18,9 +18,15 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
-    @PostMapping("listWork")
-    public Object listWork(@RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("identity") int identity){
+    @PostMapping("listWorkByPositionAndIdentity")
+    public Object listWorkByPositionAndIdentity(@RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("identity") int identity){
         List<Work> workList = workService.listWorkByPositionAndIdentity(province, city, identity);
+        return JsonUtils.getSuccessResult(workList);
+    }
+
+    @PostMapping("listAllFullTimeWork")
+    public Object listAllFullTimeWork(){
+        List<Work> workList = workService.listAllFullTimeWork();
         return JsonUtils.getSuccessResult(workList);
     }
 }

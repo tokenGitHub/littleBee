@@ -26,4 +26,8 @@
         and identity  = #{identity}
         and status = 1
     </select>
+
+    <select id="listAllFullTimeWork" resultMap="BaseResultMap">
+        select * from work where status = 1 and identity = 1
+    </select>
 </mapper>
