@@ -1,8 +1,7 @@
-package com.littleBee.bee.service;
+package com.littleBee.bee.service.user;
 
 import com.littleBee.bee.dao.UserDao;
 import com.littleBee.bee.domain.User;
-import org.apache.tomcat.util.digester.Digester;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

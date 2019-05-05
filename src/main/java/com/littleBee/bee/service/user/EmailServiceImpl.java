@@ -1,4 +1,4 @@
-package com.littleBee.bee.service;
+package com.littleBee.bee.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

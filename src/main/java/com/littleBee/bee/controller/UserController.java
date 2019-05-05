@@ -1,16 +1,18 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.FriendAddRecord;
-import com.littleBee.bee.domain.Message;
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.dto.LoginMessage;
 import com.littleBee.bee.service.*;
+import com.littleBee.bee.service.user.EmailService;
+import com.littleBee.bee.service.user.FriendAddRecordService;
+import com.littleBee.bee.service.user.MessageService;
+import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.utills.JsonUtils;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController

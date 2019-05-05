@@ -1,4 +1,4 @@
-package com.littleBee.bee.service;
+package com.littleBee.bee.service.user;
 
 import com.littleBee.bee.domain.FriendAddRecord;
 import com.littleBee.bee.dto.FriendRecord;

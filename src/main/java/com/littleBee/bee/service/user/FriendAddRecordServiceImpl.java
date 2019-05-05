@@ -1,4 +1,4 @@
-package com.littleBee.bee.service;
+package com.littleBee.bee.service.user;
 
 import com.littleBee.bee.dao.FriendAddRecordDao;
 import com.littleBee.bee.dao.FriendDao;
