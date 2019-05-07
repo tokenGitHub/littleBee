@@ -2,6 +2,7 @@ package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
+import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.user.EmailService;
 import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.service.work.WorkService;
@@ -16,9 +17,31 @@ public class BusinessController {
     @Autowired
     private WorkService workService;
     @Autowired
-    private EmailService emailService;
+    private RedisService redisService;
     @Autowired
     private UserService userService;
+
+
+    @PostMapping("register")
+    public Object userRegister(@RequestParam String userName,
+                               @RequestParam String companyName,
+                               @RequestParam String industry,
+                               @RequestParam String companyIntroduce,
+                               @RequestParam String password,
+                               @RequestParam String email,
+                               @RequestParam String realName,
+                               @RequestParam String para,
+                               @RequestParam int sex,
+                               @RequestParam String verification){
+
+        if(verification.equals(redisService.getEmailVerificationCode(email))) {
+            User user = parseUserByData(userName, password, email, realName, sex, para, companyName, industry, companyIntroduce);
+            userService.insertUser(user);
+            return JsonUtils.getSuccessResult(user);
+        }else {
+            return JsonUtils.getFailResult("Exception : 验证码输入错误，或者已经过期");
+        }
+    }
 
     @PostMapping("releaseFullTimeWork")
     public Object releaseFullTimeWork(@RequestHeader("userId") int userId, @RequestParam int identity,
@@ -49,5 +72,20 @@ public class BusinessController {
 
         workService.saveWork(work);
         return JsonUtils.getSuccessResult("求职信息发布成功");
+    }
+
+    private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele, String companyName, String industry, String companyIntroduce){
+        User user = new User();
+        user.setUserName(userName);
+        user.setEmail(email);
+        user.setCompanyIntroduce(companyIntroduce);
+        user.setCompanyName(companyName);
+        user.setIndustry(industry);
+        user.setPassword(password);
+        user.setRealName(realName);
+        user.setTele(tele);
+        user.setSex(sex);
+        user.setIdentity(1);
+        return user;
     }
 }
