@@ -1,5 +1,6 @@
 package com.littleBee.bee.dao;
 
+import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,5 @@ public interface WorkDao {
 
     void saveWork(@Param("work") Work work);
     List<Work> listAllReleaseWorkByUserIdAndIdentity(@Param("userId") int userId, @Param("identity") int identity);
+    List<User> listUserByWorkId(@Param("workId") int workId);
 }

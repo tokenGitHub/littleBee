@@ -1,6 +1,7 @@
 package com.littleBee.bee.service.work;
 
 import com.littleBee.bee.dao.WorkDao;
+import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,12 @@ public class WorkServiceImpl implements WorkService {
     public List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity){
         return workDao.listAllReleaseWorkByUserIdAndIdentity(userId, identity);
     }
+
+    @Override
+    @Transactional
+    public List<User> listUserByWorkId(int workId){
+        return workDao.listUserByWorkId(workId);
+    }
+
 
 }

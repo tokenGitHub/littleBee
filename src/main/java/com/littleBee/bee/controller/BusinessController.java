@@ -89,6 +89,20 @@ public class BusinessController {
         return JsonUtils.getSuccessResult(workList);
     }
 
+    @PostMapping("listPersonForWork")
+    public Object listUserForWork(@RequestHeader("userId") int userId, @RequestParam("workId") int workId){
+        User user = userService.selectUserById(userId);
+        if(checkBusiness(user)){
+            return JsonUtils.getFailResult("用户身份错误");
+        }
+        List<User> userList = workService.listUserByWorkId(workId);
+        return JsonUtils.getSuccessResult(userList);
+    }
+
+    private boolean checkBusiness(User user){
+        return user != null && user.getIdentity() == 1;
+    }
+
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele, String companyName, String industry, String companyIntroduce){
         User user = new User();
         user.setUserName(userName);

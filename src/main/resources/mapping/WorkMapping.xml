@@ -18,6 +18,18 @@
         <result column="status" property="status" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="user" type="com.littleBee.bee.domain.User" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="identity" property="identity" jdbcType="INTEGER" />
+        <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="industry" property="industry" jdbcType="VARCHAR" />
+        <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
+    </resultMap>
+
     <insert id="saveWork">
         insert into work set user_id = #{work.userId},
                              identity = #{work.identity}
@@ -56,5 +68,9 @@
 
     <select id="listAllReleaseWorkByUserIdAndIdentity" resultMap="BaseResultMap">
         select * from work where user_id = #{userId} and identity = #{identity}
+    </select>
+
+    <select id="listUserByWorkId" resultMap="user">
+        select user.* from user,work_record where user.id = work_record.user_id and work_record.work_id = #{workId}
     </select>
 </mapper>

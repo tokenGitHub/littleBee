@@ -1,5 +1,6 @@
 package com.littleBee.bee.service.work;
 
+import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface WorkService {
 
     void saveWork(Work work);
     List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity);
+    List<User> listUserByWorkId(int workId);
 }
