@@ -54,4 +54,7 @@
         select work.* from work, work_record where work.id = work_record.work_id and work_record.user_id = #{userId}
     </select>
 
+    <select id="listAllReleaseWorkByUserIdAndIdentity" resultMap="BaseResultMap">
+        select * from work where user_id = #{userId} and identity = #{identity}
+    </select>
 </mapper>

@@ -11,4 +11,5 @@ public interface WorkService {
     List<Work> listWorkRecord(int userId);
 
     void saveWork(Work work);
+    List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity);
 }

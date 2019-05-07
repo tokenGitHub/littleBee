@@ -42,4 +42,10 @@ public class WorkServiceImpl implements WorkService {
         workDao.saveWork(work);
     }
 
+    @Override
+    @Transactional
+    public List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity){
+        return workDao.listAllReleaseWorkByUserIdAndIdentity(userId, identity);
+    }
+
 }

@@ -7,8 +7,11 @@ import com.littleBee.bee.service.user.EmailService;
 import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
+import netscape.javascript.JSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("business")
@@ -72,6 +75,18 @@ public class BusinessController {
 
         workService.saveWork(work);
         return JsonUtils.getSuccessResult("求职信息发布成功");
+    }
+
+    @PostMapping("listAllReleaseWork")
+    public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestParam("identity") int identity){
+        User user = userService.selectUserById(userId);
+        if(user == null ){
+            return JsonUtils.getFailResult(new Exception("用户不存在"));
+        }else if(user.getIdentity() != 1){
+            return JsonUtils.getFailResult("用户身份不正确");
+        }
+        List<Work> workList = workService.listAllReleaseWorkByUserIdAndIdentity(userId, identity);
+        return JsonUtils.getSuccessResult(workList);
     }
 
     private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele, String companyName, String industry, String companyIntroduce){

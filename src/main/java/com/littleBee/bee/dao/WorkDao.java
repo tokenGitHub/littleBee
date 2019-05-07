@@ -14,4 +14,5 @@ public interface WorkDao {
     List<Work> listWorkRecord(@Param("userId") int userId);
 
     void saveWork(@Param("work") Work work);
+    List<Work> listAllReleaseWorkByUserIdAndIdentity(@Param("userId") int userId, @Param("identity") int identity);
 }
