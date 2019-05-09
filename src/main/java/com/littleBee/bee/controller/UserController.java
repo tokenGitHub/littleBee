@@ -106,12 +106,15 @@ public class UserController {
     }
 
     @PostMapping("listFriend")
-    public Object listFriendByUserId(@RequestParam("id") int id){
-        User user = userService.selectUserById(id);
+     *
+     * @param userId 用户id，来自 header
+     * @return 返回好友申请列表
+     */
+        User user = userService.selectUserById(userId);
         if(user == null ){
             return JsonUtils.getFailResult(new Exception("用户不存在"));
         }
-        List<User> userList = userService.listFriendByUserId(id);
+        List<User> userList = userService.listFriendByUserId(userId);
         return JsonUtils.getSuccessResult(userList);
     }
 

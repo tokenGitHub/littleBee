@@ -39,7 +39,7 @@
     </select>
 
     <select id="listFriendByUserId" resultMap="BaseResultMap">
-        select u.* from user u,friend f where u.id = friend.user_id and u.id=#{id}
+        select u.* from user u,friend f where u.id = f.user_id and u.id=#{id}
     </select>
 
     <select id="listUserByUserTele" resultMap="BaseResultMap">

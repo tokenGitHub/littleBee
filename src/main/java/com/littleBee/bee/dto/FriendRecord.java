@@ -8,5 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class FriendRecord {
     private int id;
     private int userId;
+    private int friendUserId;
     private String realName;
+    private String context;
 }
