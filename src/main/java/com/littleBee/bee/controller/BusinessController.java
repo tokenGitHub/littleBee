@@ -36,7 +36,7 @@ public class BusinessController {
      * @param verification  验证码
      * @return  返回公司所有信息
      */
-    @GetMapping("register")
+    @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
                                @RequestParam String companyName,
                                @RequestParam String industry,
@@ -73,7 +73,7 @@ public class BusinessController {
      * @param remarks       备注
      * @return  求职信息是否发布成功
      */
-    @GetMapping("releaseFullTimeWork")
+    @PostMapping("releaseFullTimeWork")
     public Object releaseFullTimeWork(@RequestHeader("userId") int userId, @RequestParam int identity,
                                       @RequestParam int needPerson, @RequestParam String wages,
                                       @RequestParam String workTime, @RequestParam String province,
@@ -110,7 +110,7 @@ public class BusinessController {
      * @param identity  职位类型 工作类型（0兼职，1全职）
      * @return  返回该商家发布的所有对应职业类型的职位
      */
-    @GetMapping("listAllReleaseWork")
+    @PostMapping("listAllReleaseWork")
     public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestParam("identity") int identity){
         User user = userService.selectUserById(userId);
         if(user == null ){
@@ -129,7 +129,7 @@ public class BusinessController {
      * @param workId 职位id
      * @return  返回该商家发布的对应职位，的所有报名人的信息
      */
-    @GetMapping("listPersonForWork")
+    @PostMapping("listPersonForWork")
     public Object listUserForWork(@RequestHeader("userId") int userId, @RequestParam("workId") int workId){
         User user = userService.selectUserById(userId);
         if(checkBusiness(user)){

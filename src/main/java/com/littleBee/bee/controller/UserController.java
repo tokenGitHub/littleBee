@@ -52,7 +52,7 @@ public class UserController {
      * @param verification  验证码，通过邮件发送到用户邮箱
      * @return         用户完整信息
      */
-    @GetMapping("register")
+    @PostMapping("register")
     public Object userRegister(@RequestParam String userName,
                               @RequestParam String password,
                               @RequestParam String email,
@@ -77,7 +77,7 @@ public class UserController {
      * @return  成功返回： 用户 id，用户 token 码
      *          失败返回： 错误信息
      */
-    @GetMapping("login")
+    @PostMapping("login")
     public Object login(@RequestParam String userName, @RequestParam String password){
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
@@ -94,7 +94,7 @@ public class UserController {
      * @param toAddress 接收验证码的邮箱地址
      * @return 成功返回OK，失败返回错误信息
      */
-    @GetMapping("verification")
+    @PostMapping("verification")
     public Object sendVerification(@RequestParam String toAddress){
         try {
             String verification = emailService.sendSimpleMail(toAddress);
@@ -168,7 +168,7 @@ public class UserController {
      * @param agreeOrNot    是否同意（1同意，2不同意）
      * @return   返回是否成功
      */
-    @GetMapping("friendVerification")
+    @PostMapping("friendVerification")
     public Object friendVerification(@RequestParam("recordId") int id, int agreeOrNot){
         FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(id);
         if(record == null){
@@ -184,7 +184,7 @@ public class UserController {
      * @param userId 用户id，来自请求头
      * @return  返回该用户所有好友请求
      */
-    @GetMapping("listFriendRequest")
+    @PostMapping("listFriendRequest")
     public Object listFriendRequest(@RequestParam("userId") int userId){
         List list = friendAddRecordService.listFriendAddRecordByUserId(userId);
         return JsonUtils.getSuccessResult(list);
@@ -196,7 +196,7 @@ public class UserController {
      * @param targetUserId  接收用户id
      * @return 返回此两用户的所有聊天记录
      */
-    @GetMapping("listUserChatMessage")
+    @PostMapping("listUserChatMessage")
     public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
         List<Message> messageList = messageService.listUserChatMessage(userId, targetUserId);
         return  JsonUtils.getSuccessResult(messageList);
@@ -209,7 +209,7 @@ public class UserController {
      * @param context       所要发送的消息
      * @return  返回消息发送是否成功
      */
-    @GetMapping("sendMessage")
+    @PostMapping("sendMessage")
     public Object sendMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
         User user = userService.selectUserById(targetUserId);
         if(user == null){
