@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 用户接口，请求方式  地址：端口号/user/接口
+ * eg :
+ *   106.15.92.48:8080/user/register  +  参数
+ */
 @RestController
 @Log
 @RequestMapping("user")
@@ -35,17 +40,28 @@ public class UserController {
     @Autowired
     private MessageService messageService;
 
-    @PostMapping("register")
+    /**
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @param email    邮箱地址
+     * @param realName 真实姓名
+     * @param tele     电话号码
+     * @param sex      用户性别（0男，1女）
+     * @param verification  验证码，通过邮件发送到用户邮箱
+     * @return         用户完整信息
+     */
+    @GetMapping("register")
     public Object userRegister(@RequestParam String userName,
                               @RequestParam String password,
                               @RequestParam String email,
                               @RequestParam String realName,
-                              @RequestParam String para,
+                              @RequestParam String tele,
                               @RequestParam int sex,
                               @RequestParam String verification){
 
         if(verification.equals(redisService.getEmailVerificationCode(email))) {
-            User user = parseUserByData(userName, password, email, realName, sex, para);
+            User user = parseUserByData(userName, password, email, realName, sex, tele);
             userService.insertUser(user);
             return JsonUtils.getSuccessResult(user);
         }else {
@@ -53,7 +69,14 @@ public class UserController {
         }
     }
 
-    @PostMapping("login")
+    /**
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @return  成功返回： 用户 id，用户 token 码
+     *          失败返回： 错误信息
+     */
+    @GetMapping("login")
     public Object login(@RequestParam String userName, @RequestParam String password){
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
@@ -65,7 +88,12 @@ public class UserController {
         }
     }
 
-    @PostMapping("verification")
+    /**
+     *
+     * @param toAddress 接收验证码的邮箱地址
+     * @return 成功返回OK，失败返回错误信息
+     */
+    @GetMapping("verification")
     public Object sendVerification(@RequestParam String toAddress){
         try {
             String verification = emailService.sendSimpleMail(toAddress);
@@ -88,11 +116,11 @@ public class UserController {
     }
 
     @PostMapping("findUser")
-    public Object findUser( @RequestParam("userName")  String realName, String tele){
-        if(realName != null){
+    public Object findUser( @RequestParam String realName,@RequestParam String tele){
+        if(realName != null && !realName.isEmpty()){
             List<User> userList = userService.listUserByRealName(realName);
             return JsonUtils.getSuccessResult(userList);
-        }else if(tele != null){
+        }else if(tele != null && !tele.isEmpty()){
             List<User> userList = userService.listUserByUserTele(tele);
             return JsonUtils.getSuccessResult(userList);
         }else{
