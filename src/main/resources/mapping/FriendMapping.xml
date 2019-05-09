@@ -8,7 +8,7 @@
     </resultMap>
 
     <insert id="insertFriend">
-         insert into friend set user_id = #{record.userId},
-                              friend_user_id  = #{record.friendUserId}
+         insert into friend set user_id = #{friend.userId},
+                              friend_user_id  = #{friend.friendUserId}
     </insert>
 </mapper>

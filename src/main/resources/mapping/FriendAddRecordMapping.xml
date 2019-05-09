@@ -23,7 +23,7 @@
     </insert>
 
     <update id="updateRecord">
-        update friend_add_record set status = #{status} where id = #{record.id}
+        update friend_add_record set status = #{record.status} where id = #{record.id}
     </update>
 
     <select id="listFriendRecordByUserId" resultMap="FriendRecord">
@@ -35,5 +35,9 @@
             user.id = friend_add_record.user_id
             and
             friend_add_record.friend_user_id = #{userId}
+    </select>
+
+    <select id="selectFriendAddRecordById" resultType="FriendAddRecord">
+        select * from friend_add_record where id = #{id}
     </select>
 </mapper>
