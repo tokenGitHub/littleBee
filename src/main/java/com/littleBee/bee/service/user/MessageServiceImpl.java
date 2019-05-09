@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,7 +23,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void sendMessage(int sendUserId, int targetUserId, String context){
-        Date date = new Date(new java.util.Date().getTime());
+        Date date = new Date();
         messageDao.insertMessage(sendUserId, targetUserId, context, date);
     }
 
