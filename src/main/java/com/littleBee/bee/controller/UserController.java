@@ -176,18 +176,36 @@ public class UserController {
         return JsonUtils.getSuccessResult("成功");
     }
 
-    @PostMapping("listFriendRequest")
-    public Object listFriendRequest(@RequestHeader("userId") int userId){
+    /**
+     *
+     * @param userId 用户id，来自请求头
+     * @return  返回该用户所有好友请求
+     */
+    @GetMapping("listFriendRequest")
+    public Object listFriendRequest(@RequestParam("userId") int userId){
         return friendAddRecordService.listFriendAddRecordByUserId(userId);
     }
 
-    @PostMapping("listUserChatMessage")
+    /**
+     *
+     * @param userId 发送用户id，来自header
+     * @param targetUserId  接收用户id
+     * @return 返回此两用户的所有聊天记录
+     */
+    @GetMapping("listUserChatMessage")
     public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
         return messageService.listUserChatMessage(userId, targetUserId);
     }
 
-    @PostMapping("sendMessage")
-    public Object sendMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
+    /**
+     *
+     * @param userId 发送消息的用户id，来自header
+     * @param targetUserId  接收消息的用户id
+     * @param context       所要发送的消息
+     * @return  返回消息发送是否成功
+     */
+    @GetMapping("sendMessage")
+    public Object sendMessage(@RequestParam("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
         User user = userService.selectUserById(targetUserId);
         if(user == null){
             return JsonUtils.getFailResult(new Exception("目标用户不存在"));

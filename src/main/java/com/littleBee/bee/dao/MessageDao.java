@@ -4,7 +4,7 @@ import com.littleBee.bee.domain.Message;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
