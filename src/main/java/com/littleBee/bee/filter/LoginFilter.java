@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log
 @WebFilter
@@ -28,7 +30,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         log.info(request.getRequestURI());
 
-        if(request.getRequestURI().contains("/user/")){
+        if(whiteList(request.getRequestURI())){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -43,6 +45,20 @@ public class LoginFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             }
         }
+    }
+
+    private boolean whiteList(String uri){
+        List<String> list = new ArrayList<>();
+        list.add("verification");
+        list.add("login");
+        list.add("register");
+
+        for( String data : list){
+            if(uri.contains(data)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
