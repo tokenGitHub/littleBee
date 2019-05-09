@@ -3,7 +3,6 @@ package com.littleBee.bee.controller;
 import com.littleBee.bee.domain.Work;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
-import netscape.javascript.JSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
