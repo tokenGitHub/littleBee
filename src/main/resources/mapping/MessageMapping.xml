@@ -3,10 +3,10 @@
 <mapper namespace="com.littleBee.bee.dao.MessageDao" >
     <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.Message" >
         <result column="id" property="id" jdbcType="INTEGER" />
-        <result column="sendUserId" property="send_user_id" jdbcType="INTEGER" />
-        <result column="receiveUserId" property="receive_user_id" jdbcType="INTEGER" />
+        <result column="send_user_id" property="sendUserId" jdbcType="INTEGER" />
+        <result column="receive_user_id" property="receiveUserId" jdbcType="INTEGER" />
         <result column="context" property="context" jdbcType="VARCHAR" />
-        <result column="sendTime" property="send_time" jdbcType="DATE" />
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <insert id="insertMessage">

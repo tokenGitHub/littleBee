@@ -1,6 +1,7 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.FriendAddRecord;
+import com.littleBee.bee.domain.Message;
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.dto.LoginMessage;
 import com.littleBee.bee.service.*;
@@ -110,6 +111,7 @@ public class UserController {
      * @param userId 用户id，来自 header
      * @return 返回好友申请列表
      */
+    @PostMapping("listFriendByUserId")
     public Object listFriendByUserId(@RequestHeader("userId") int userId){
         User user = userService.selectUserById(userId);
         if(user == null ){
@@ -125,6 +127,7 @@ public class UserController {
      * @param tele     用户电话号码 为空时填写空串
      * @return         返回用户所有信息
      */
+    @PostMapping("findUser")
     public Object findUser( @RequestParam String realName,@RequestParam String tele){
         if(realName != null && !realName.isEmpty()){
             List<User> userList = userService.listUserByRealName(realName);
@@ -183,7 +186,8 @@ public class UserController {
      */
     @GetMapping("listFriendRequest")
     public Object listFriendRequest(@RequestParam("userId") int userId){
-        return friendAddRecordService.listFriendAddRecordByUserId(userId);
+        List list = friendAddRecordService.listFriendAddRecordByUserId(userId);
+        return JsonUtils.getSuccessResult(list);
     }
 
     /**
@@ -194,7 +198,8 @@ public class UserController {
      */
     @GetMapping("listUserChatMessage")
     public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
-        return messageService.listUserChatMessage(userId, targetUserId);
+        List<Message> messageList = messageService.listUserChatMessage(userId, targetUserId);
+        return  JsonUtils.getSuccessResult(messageList);
     }
 
     /**
@@ -205,7 +210,7 @@ public class UserController {
      * @return  返回消息发送是否成功
      */
     @GetMapping("sendMessage")
-    public Object sendMessage(@RequestParam("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
+    public Object sendMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
         User user = userService.selectUserById(targetUserId);
         if(user == null){
             return JsonUtils.getFailResult(new Exception("目标用户不存在"));
