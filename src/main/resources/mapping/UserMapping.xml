@@ -18,11 +18,12 @@
                               password  = #{user.password},
                               email     = #{user.email},
                               real_name = #{user.realName},
-                              real_name = #{user.realName},
+                              tele = #{user.tele},
                               identity = #{user.identity},
                               company_name = #{user.companyName},
                               industry = #{user.industry},
-                              company_introduce = #{user.companyIntroduce},
+                              sex = #{user.sex},
+                              company_introduce = #{user.companyIntroduce}
     </insert>
 
     <select id="userLogin" resultType="String">
