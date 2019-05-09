@@ -3,7 +3,7 @@ package com.littleBee.bee.domain;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @EntityScan
