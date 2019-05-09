@@ -6,7 +6,7 @@
         <result column="sendUserId" property="send_user_id" jdbcType="INTEGER" />
         <result column="receiveUserId" property="receive_user_id" jdbcType="INTEGER" />
         <result column="context" property="context" jdbcType="VARCHAR" />
-        <result column="sendTime" property="send_time" jdbcType="DATETIME" />
+        <result column="sendTime" property="send_time" jdbcType="DATE" />
     </resultMap>
 
     <insert id="insertMessage">
