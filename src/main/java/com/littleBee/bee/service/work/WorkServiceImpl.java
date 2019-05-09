@@ -55,5 +55,11 @@ public class WorkServiceImpl implements WorkService {
         return workDao.listUserByWorkId(workId);
     }
 
+    @Override
+    @Transactional
+    public List<Work> listWorkByWorkName(String workName){
+        return workDao.listWorkByWorkName(workName);
+    }
+
 
 }

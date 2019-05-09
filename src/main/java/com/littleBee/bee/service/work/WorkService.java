@@ -14,4 +14,5 @@ public interface WorkService {
     void saveWork(Work work);
     List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity);
     List<User> listUserByWorkId(int workId);
+    List<Work> listWorkByWorkName(String workName);
 }
