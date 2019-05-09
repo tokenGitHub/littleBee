@@ -16,6 +16,7 @@
         <result column="tele" property="tele" jdbcType="VARCHAR" />
         <result column="remarks" property="remarks" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="work_name" property="workName" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="user" type="com.littleBee.bee.domain.User" >
@@ -43,6 +44,7 @@
                              contacts = #{work.contacts}
                              tele = #{work.tele}
                              remarks = #{work.remarks}
+                             work_name=#{work.workName}
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">

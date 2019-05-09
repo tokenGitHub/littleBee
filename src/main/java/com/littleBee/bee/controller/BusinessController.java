@@ -71,6 +71,7 @@ public class BusinessController {
      * @param contacts      联系人
      * @param tele          联系电话
      * @param remarks       备注
+     * @Param workName      工作名称
      * @return  求职信息是否发布成功
      */
     @PostMapping("releaseFullTimeWork")
@@ -79,7 +80,8 @@ public class BusinessController {
                                       @RequestParam String workTime, @RequestParam String province,
                                       @RequestParam String city, @RequestParam String duty,
                                       @RequestParam String requirement, @RequestParam String contacts,
-                                      @RequestParam String tele, @RequestParam String remarks){
+                                      @RequestParam String tele, @RequestParam String remarks,
+                                      @RequestParam String workName){
         User user = userService.selectUserById(userId);
         if(user == null){
             return JsonUtils.getFailResult(new Exception("用户不存在"));
@@ -99,7 +101,7 @@ public class BusinessController {
         work.setWages(wages);
         work.setWorkTime(workTime);
         work.setRequirement(requirement);
-
+        work.setWorkName(workName);
         workService.saveWork(work);
         return JsonUtils.getSuccessResult("职位信息发布成功");
     }
