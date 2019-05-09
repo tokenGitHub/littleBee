@@ -105,11 +105,12 @@ public class UserController {
         return JsonUtils.getSuccessResult("OK");
     }
 
-    @PostMapping("listFriend")
+    /**
      *
      * @param userId 用户id，来自 header
      * @return 返回好友申请列表
      */
+    public Object listFriendByUserId(@RequestHeader("userId") int userId){
         User user = userService.selectUserById(userId);
         if(user == null ){
             return JsonUtils.getFailResult(new Exception("用户不存在"));
@@ -118,7 +119,7 @@ public class UserController {
         return JsonUtils.getSuccessResult(userList);
     }
 
-    @PostMapping("findUser")
+    /**
      *
      * @param realName 用户真实姓名 为空时填写空串
      * @param tele     用户电话号码 为空时填写空串
@@ -136,7 +137,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("addFriend")
+    /**
      *
      * @param userId     用户id
      * @param friendId   好友的用户id
@@ -157,7 +158,14 @@ public class UserController {
         return JsonUtils.getSuccessResult("好友请求已记录");
     }
 
-    @PostMapping("friendVerification")
+
+    /**
+     *
+     * @param id  好友请求的id
+     * @param agreeOrNot    是否同意（1同意，2不同意）
+     * @return   返回是否成功
+     */
+    @GetMapping("friendVerification")
     public Object friendVerification(@RequestParam("recordId") int id, int agreeOrNot){
         FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(id);
         if(record == null){
