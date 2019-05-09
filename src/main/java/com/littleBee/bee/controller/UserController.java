@@ -116,6 +116,11 @@ public class UserController {
     }
 
     @PostMapping("findUser")
+     *
+     * @param realName 用户真实姓名 为空时填写空串
+     * @param tele     用户电话号码 为空时填写空串
+     * @return         返回用户所有信息
+     */
     public Object findUser( @RequestParam String realName,@RequestParam String tele){
         if(realName != null && !realName.isEmpty()){
             List<User> userList = userService.listUserByRealName(realName);
@@ -129,6 +134,12 @@ public class UserController {
     }
 
     @PostMapping("addFriend")
+     *
+     * @param userId     用户id
+     * @param friendId   好友的用户id
+     * @param context    验证消息
+     * @return           返回请求是否发送成功
+     */
     public Object addFriend(@RequestHeader("userId") int userId, @RequestParam("friendId") int friendId, @RequestParam("context") String context){
         User user = userService.selectUserById(userId);
         User friend = userService.selectUserById(friendId);
