@@ -24,9 +24,6 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String userCode = servletRequest.getParameter("userCode");
-        String userName = servletRequest.getParameter("userName");
-
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         log.info(request.getRequestURI());
 
@@ -34,6 +31,10 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+
+        String userCode = servletRequest.getParameter("userCode");
+        String userName = servletRequest.getParameter("userName");
+
 
         if(userCode == null || userName == null){
             servletResponse.getWriter().println(new Exception("未登录"));
