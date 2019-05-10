@@ -19,7 +19,7 @@ public class RedisUtil<T> {
      * 指定缓存失效时间
      * @param key 键
      * @param time 时间(秒)
-     * @return
+     * @return 返回设置是否成功
      */
     public boolean expire(String key,long time){
         try {
@@ -119,12 +119,6 @@ public class RedisUtil<T> {
         }
     }
 
-    /**
-     * 递增
-     * @param key 键
-     * @param by 要增加几(大于0)
-     * @return
-     */
     public long incr(String key, long delta){
         if(delta<0){
             throw new RuntimeException("递增因子必须大于0");
@@ -132,12 +126,6 @@ public class RedisUtil<T> {
         return redisTemplate.opsForValue().increment(key, delta);
     }
 
-    /**
-     * 递减
-     * @param key 键
-     * @param by 要减少几(小于0)
-     * @return
-     */
     public long decr(String key, long delta){
         if(delta<0){
             throw new RuntimeException("递减因子必须大于0");
@@ -146,12 +134,7 @@ public class RedisUtil<T> {
     }
 
     //================================Map=================================
-    /**
-     * HashGet
-     * @param key 键 不能为null
-     * @param item 项 不能为null
-     * @return 值
-     */
+
     public Object hget(String key,String item){
         return redisTemplate.opsForHash().get(key, item);
     }
@@ -274,7 +257,7 @@ public class RedisUtil<T> {
      * @param key 键
      * @param item 项
      * @param by 要减少记(小于0)
-     * @return
+     * @return 说明
      */
     public double hdecr(String key, String item,double by){
         return redisTemplate.opsForHash().increment(key, item,-by);
@@ -407,7 +390,7 @@ public class RedisUtil<T> {
     /**
      * 通过索引 获取list中的值
      * @param key 键
-     * @param index 索引  index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
+     * @param index 索引  index 小于等于 0 时， 0 表头，1 第二个元素，依次类推；index 小于 0 时，-1，表尾，-2倒数第二个元素，依次类推
      * @return
      */
     public Object lGetIndex(String key,long index){
@@ -419,13 +402,6 @@ public class RedisUtil<T> {
         }
     }
 
-    /**
-     * 将list放入缓存
-     * @param key 键
-     * @param value 值
-     * @param time 时间(秒)
-     * @return
-     */
     public boolean lSet(String key, Object value) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
@@ -454,13 +430,6 @@ public class RedisUtil<T> {
         }
     }
 
-    /**
-     * 将list放入缓存
-     * @param key 键
-     * @param value 值
-     * @param time 时间(秒)
-     * @return
-     */
     public boolean lSet(String key, List<Object> value) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
@@ -494,7 +463,7 @@ public class RedisUtil<T> {
      * @param key 键
      * @param index 索引
      * @param value 值
-     * @return
+     * @return 返回更新是否成功
      */
     public boolean lUpdateIndex(String key, long index,Object value) {
         try {

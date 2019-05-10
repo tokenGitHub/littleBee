@@ -71,7 +71,7 @@ public class BusinessController {
      * @param contacts      联系人
      * @param tele          联系电话
      * @param remarks       备注
-     * @Param workName      工作名称
+     * @param workName       备注
      * @return  求职信息是否发布成功
      */
     @PostMapping("releaseFullTimeWork")

@@ -22,22 +22,15 @@ public class RedisConfig {
     @Autowired
     RedisConnectionFactory redisConnectionFactory;
 
-    /**
-     * 设置 redisTemplate 的序列化设置
-     * @param redisConnectionFactory
-     * @return
-     */
+
     @Bean
     public RedisTemplate<String, Object> functionDomainRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         initDomainRedisTemplate(redisTemplate, redisConnectionFactory);
         return redisTemplate;
     }
-    /**
+    /*
      * 设置数据存入 redis 的序列化方式,并开启事务
-     *
-     * @param redisTemplate
-     * @param factory
      */
     private void initDomainRedisTemplate(RedisTemplate<String, Object> redisTemplate, RedisConnectionFactory factory) {
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -48,14 +41,6 @@ public class RedisConfig {
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setConnectionFactory(factory);
     }
-    /**
-     * 注入封装RedisTemplate
-     * @Title: redisUtil
-     * @return RedisUtil
-     * @autor lpl
-     * @date 2017年12月21日
-     * @throws
-     */
     @Bean(name = "redisUtil")
     public RedisUtil redisUtil(RedisTemplate<String, Object> redisTemplate) {
         RedisUtil redisUtil = new RedisUtil();
