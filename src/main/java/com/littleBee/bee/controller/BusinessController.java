@@ -2,6 +2,9 @@ package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
+import com.littleBee.bee.dto.ListAllReleaseWorkData;
+import com.littleBee.bee.dto.ListPersonForWorkData;
+import com.littleBee.bee.dto.RegisterData;
 import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.service.work.WorkService;
@@ -37,19 +40,10 @@ public class BusinessController {
      * @return  返回公司所有信息
      */
     @PostMapping("register")
-    public Object userRegister(@RequestParam String userName,
-                               @RequestParam String companyName,
-                               @RequestParam String industry,
-                               @RequestParam String companyIntroduce,
-                               @RequestParam String password,
-                               @RequestParam String email,
-                               @RequestParam String realName,
-                               @RequestParam String tele,
-                               @RequestParam int sex,
-                               @RequestParam String verification){
+    public Object userRegister(@RequestBody RegisterData registerData){
 
-        if(verification.equals(redisService.getEmailVerificationCode(email))) {
-            User user = parseUserByData(userName, password, email, realName, sex, tele, companyName, industry, companyIntroduce);
+        if(registerData.getVerification().equals(redisService.getEmailVerificationCode(registerData.getEmail()))) {
+            User user = parseUserByData(registerData);
             userService.insertUser(user);
             return JsonUtils.getSuccessResult(user);
         }else {
@@ -75,33 +69,13 @@ public class BusinessController {
      * @return  求职信息是否发布成功
      */
     @PostMapping("releaseFullTimeWork")
-    public Object releaseFullTimeWork(@RequestHeader("userId") int userId, @RequestParam int identity,
-                                      @RequestParam int needPerson, @RequestParam String wages,
-                                      @RequestParam String workTime, @RequestParam String province,
-                                      @RequestParam String city, @RequestParam String duty,
-                                      @RequestParam String requirement, @RequestParam String contacts,
-                                      @RequestParam String tele, @RequestParam String remarks,
-                                      @RequestParam String workName){
+    public Object releaseFullTimeWork(@RequestHeader("userId") int userId, @RequestBody Work work){
         User user = userService.selectUserById(userId);
         if(user == null){
             return JsonUtils.getFailResult(new Exception("用户不存在"));
         }else if(user.getIdentity() != 1){
             return JsonUtils.getFailResult(new Exception("只有商家才能发布招聘信息"));
         }
-        Work work = new Work();
-        work.setCity(city);
-        work.setContacts(contacts);
-        work.setDuty(duty);
-        work.setIdentity(identity);
-        work.setNeedPerson(needPerson);
-        work.setProvince(province);
-        work.setRemarks(remarks);
-        work.setTele(tele);
-        work.setUserId(userId);
-        work.setWages(wages);
-        work.setWorkTime(workTime);
-        work.setRequirement(requirement);
-        work.setWorkName(workName);
         workService.saveWork(work);
         return JsonUtils.getSuccessResult("职位信息发布成功");
     }
@@ -113,14 +87,14 @@ public class BusinessController {
      * @return  返回该商家发布的所有对应职业类型的职位
      */
     @PostMapping("listAllReleaseWork")
-    public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestParam("identity") int identity){
+    public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestBody ListAllReleaseWorkData listAllReleaseWorkData){
         User user = userService.selectUserById(userId);
         if(user == null ){
             return JsonUtils.getFailResult(new Exception("用户不存在"));
         }else if(user.getIdentity() != 1){
             return JsonUtils.getFailResult("用户身份不正确");
         }
-        List<Work> workList = workService.listAllReleaseWorkByUserIdAndIdentity(userId, identity);
+        List<Work> workList = workService.listAllReleaseWorkByUserIdAndIdentity(userId, listAllReleaseWorkData.getIdentity());
         return JsonUtils.getSuccessResult(workList);
     }
 
@@ -132,12 +106,12 @@ public class BusinessController {
      * @return  返回该商家发布的对应职位，的所有报名人的信息
      */
     @PostMapping("listPersonForWork")
-    public Object listUserForWork(@RequestHeader("userId") int userId, @RequestParam("workId") int workId){
+    public Object listUserForWork(@RequestHeader("userId") int userId, @RequestBody ListPersonForWorkData listPersonForWorkData){
         User user = userService.selectUserById(userId);
         if(checkBusiness(user)){
             return JsonUtils.getFailResult("用户身份错误");
         }
-        List<User> userList = workService.listUserByWorkId(workId);
+        List<User> userList = workService.listUserByWorkId(listPersonForWorkData.getWorkId());
         return JsonUtils.getSuccessResult(userList);
     }
 
@@ -145,17 +119,17 @@ public class BusinessController {
         return user != null && user.getIdentity() == 1;
     }
 
-    private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele, String companyName, String industry, String companyIntroduce){
+    private User parseUserByData(RegisterData registerData){
         User user = new User();
-        user.setUserName(userName);
-        user.setEmail(email);
-        user.setCompanyIntroduce(companyIntroduce);
-        user.setCompanyName(companyName);
-        user.setIndustry(industry);
-        user.setPassword(password);
-        user.setRealName(realName);
-        user.setTele(tele);
-        user.setSex(sex);
+        user.setUserName(registerData.getUserName());
+        user.setEmail(registerData.getEmail());
+        user.setCompanyIntroduce(registerData.getCompanyIntroduce());
+        user.setCompanyName(registerData.getCompanyName());
+        user.setIndustry(registerData.getIndustry());
+        user.setPassword(registerData.getPassword());
+        user.setRealName(registerData.getRealName());
+        user.setTele(registerData.getTele());
+        user.setSex(registerData.getSex());
         user.setIdentity(1);
         return user;
     }
