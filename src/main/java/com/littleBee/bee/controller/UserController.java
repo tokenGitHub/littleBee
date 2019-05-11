@@ -3,7 +3,7 @@ package com.littleBee.bee.controller;
 import com.littleBee.bee.domain.FriendAddRecord;
 import com.littleBee.bee.domain.Message;
 import com.littleBee.bee.domain.User;
-import com.littleBee.bee.dto.LoginMessage;
+import com.littleBee.bee.dto.*;
 import com.littleBee.bee.service.*;
 import com.littleBee.bee.service.user.EmailService;
 import com.littleBee.bee.service.user.FriendAddRecordService;
@@ -53,16 +53,9 @@ public class UserController {
      * @return         用户完整信息
      */
     @PostMapping("register")
-    public Object userRegister(@RequestParam String userName,
-                              @RequestParam String password,
-                              @RequestParam String email,
-                              @RequestParam String realName,
-                              @RequestParam String tele,
-                              @RequestParam int sex,
-                              @RequestParam String verification){
-
-        if(verification.equals(redisService.getEmailVerificationCode(email))) {
-            User user = parseUserByData(userName, password, email, realName, sex, tele);
+    public Object userRegister(@RequestBody RegisterData registerData){
+        User user = parseUserByData(registerData);
+        if(registerData.getVerification().equals(redisService.getEmailVerificationCode(user.getEmail()))) {
             userService.insertUser(user);
             return JsonUtils.getSuccessResult(user);
         }else {
@@ -78,14 +71,16 @@ public class UserController {
      *          失败返回： 错误信息
      */
     @PostMapping("login")
-    public Object login(@RequestParam String userName, @RequestParam String password){
+    public Object login(@RequestBody User paraUser){
+        String userName = paraUser.getUserName();
+        String password = paraUser.getPassword();
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
         if(userCode != null){
             redisService.setUserLoginCode(userName, userCode);
             return JsonUtils.getSuccessResult(new LoginMessage(user.getId(), userCode));
         }else{
-            return JsonUtils.getFailResult(new Exception("Exception : 账号或密码错误"));
+            return JsonUtils.getFailResult("Exception : 账号或密码错误");
         }
     }
 
@@ -95,8 +90,10 @@ public class UserController {
      * @return 成功返回OK，失败返回错误信息
      */
     @PostMapping("verification")
-    public Object sendVerification(@RequestParam String toAddress){
+    public Object sendVerification(@RequestBody VerificationData verificationData){
         try {
+            String toAddress = verificationData.getToAddress();
+            log.info(toAddress);
             String verification = emailService.sendSimpleMail(toAddress);
             redisService.saveEmailVerificationCode(toAddress, verification);
         }catch (Exception e){
@@ -128,7 +125,9 @@ public class UserController {
      * @return         返回用户所有信息
      */
     @PostMapping("findUser")
-    public Object findUser( @RequestParam String realName,@RequestParam String tele){
+    public Object findUser(@RequestBody FindUserData findUser){
+        String realName = findUser.getRealName();
+        String tele = findUser.getTele();
         if(realName != null && !realName.isEmpty()){
             List<User> userList = userService.listUserByRealName(realName);
             return JsonUtils.getSuccessResult(userList);
@@ -147,8 +146,12 @@ public class UserController {
      * @param context    验证消息
      * @return           返回请求是否发送成功
      */
-    public Object addFriend(@RequestHeader("userId") int userId, @RequestParam("friendId") int friendId, @RequestParam("context") String context){
+    @PostMapping("addFriend")
+    public Object addFriend(@RequestHeader("userId") int userId,@RequestBody AddFriendData addFriendData){
         User user = userService.selectUserById(userId);
+        int friendId = addFriendData.getFriendId();
+        String context = addFriendData.getContext();
+
         User friend = userService.selectUserById(friendId);
         if(user == null || friend == null){
             return JsonUtils.getFailResult(new Exception("用户不存在或者要添加的用户不存在"));
@@ -169,13 +172,13 @@ public class UserController {
      * @return   返回是否成功
      */
     @PostMapping("friendVerification")
-    public Object friendVerification(@RequestParam("recordId") int id, int agreeOrNot){
-        FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(id);
+    public Object friendVerification(@RequestBody FriendVerificationData friendVerificationData){
+        FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(friendVerificationData.getRecordId());
         if(record == null){
             return JsonUtils.getFailResult( new Exception("好友请求不存在") );
         }
 
-        friendAddRecordService.saveFriend(record, agreeOrNot);
+        friendAddRecordService.saveFriend(record, friendVerificationData.getAgreeOrNot());
         return JsonUtils.getSuccessResult("成功");
     }
 
@@ -185,7 +188,7 @@ public class UserController {
      * @return  返回该用户所有好友请求
      */
     @PostMapping("listFriendRequest")
-    public Object listFriendRequest(@RequestParam("userId") int userId){
+    public Object listFriendRequest(@RequestHeader int userId){
         List list = friendAddRecordService.listFriendAddRecordByUserId(userId);
         return JsonUtils.getSuccessResult(list);
     }
@@ -197,8 +200,8 @@ public class UserController {
      * @return 返回此两用户的所有聊天记录
      */
     @PostMapping("listUserChatMessage")
-    public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId){
-        List<Message> messageList = messageService.listUserChatMessage(userId, targetUserId);
+    public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestBody ListUserChatMessageData listUserChatMessageData){
+        List<Message> messageList = messageService.listUserChatMessage(userId, listUserChatMessageData.getTargetUserId());
         return  JsonUtils.getSuccessResult(messageList);
     }
 
@@ -210,23 +213,24 @@ public class UserController {
      * @return  返回消息发送是否成功
      */
     @PostMapping("sendMessage")
-    public Object sendMessage(@RequestHeader("userId") int userId, @RequestParam("targetUserId") int targetUserId, @RequestParam("context") String context){
+    public Object sendMessage(@RequestHeader("userId") int userId, @RequestBody SendMessageData sendMessageData){
+        int targetUserId = sendMessageData.getTargetUserId();
         User user = userService.selectUserById(targetUserId);
         if(user == null){
             return JsonUtils.getFailResult(new Exception("目标用户不存在"));
         }
-        messageService.sendMessage(userId, targetUserId, context);
+        messageService.sendMessage(userId, targetUserId, sendMessageData.getContext());
         return JsonUtils.getSuccessResult(null);
     }
 
-    private User parseUserByData(String userName, String password, String email, String realName, int sex, String tele){
+    private User parseUserByData(RegisterData registerData){
         User user = new User();
-        user.setUserName(userName);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRealName(realName);
-        user.setTele(tele);
-        user.setSex(sex);
+        user.setUserName(registerData.getUserName());
+        user.setEmail(registerData.getEmail());
+        user.setPassword(registerData.getPassword());
+        user.setRealName(registerData.getRealName());
+        user.setTele(registerData.getTele());
+        user.setSex(registerData.getSex());
         user.setIdentity(0);
         return user;
     }
