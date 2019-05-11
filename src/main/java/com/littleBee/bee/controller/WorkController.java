@@ -1,6 +1,8 @@
 package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.Work;
+import com.littleBee.bee.dto.ListWorkByPositionAndIdentityData;
+import com.littleBee.bee.dto.ListWorkByWorkNameData;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,12 @@ public class WorkController {
      * @return 返回对应城市的所有对应类型的职位
      */
     @PostMapping("listWorkByPositionAndIdentity")
-    public Object listWorkByPositionAndIdentity(@RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("identity") int identity){
-        List<Work> workList = workService.listWorkByPositionAndIdentity(province, city, identity);
+    public Object listWorkByPositionAndIdentity(@RequestBody ListWorkByPositionAndIdentityData listWorkByPositionAndIdentityData){
+        List<Work> workList = workService.listWorkByPositionAndIdentity(
+                listWorkByPositionAndIdentityData.getProvince(),
+                listWorkByPositionAndIdentityData.getCity(),
+                listWorkByPositionAndIdentityData.getIdentity()
+        );
         return JsonUtils.getSuccessResult(workList);
     }
 
@@ -62,8 +68,8 @@ public class WorkController {
      * @return 返回所有跟 workName 相关的工作
      */
     @PostMapping("listWorkByWorkName")
-    public Object listWorkByWorkName(@RequestParam("workName") String workName){
-        List<Work> workList = workService.listWorkByWorkName(workName);
+    public Object listWorkByWorkName(@RequestBody ListWorkByWorkNameData listWorkByWorkNameData){
+        List<Work> workList = workService.listWorkByWorkName(listWorkByWorkNameData.getWorkName());
         return JsonUtils.getSuccessResult(workList);
     }
 }
