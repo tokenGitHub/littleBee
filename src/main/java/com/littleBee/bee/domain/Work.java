@@ -13,7 +13,6 @@ public class Work {
     private int needPerson;
     private String wages;
     private String workTime;
-    private String province;
     private String city;
     private String duty;
     private String requirement;

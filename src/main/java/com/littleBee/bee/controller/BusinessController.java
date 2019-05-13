@@ -58,7 +58,6 @@ public class BusinessController {
      * @param needPerson 需要人数
      * @param wages      工资
      * @param workTime   工作时间
-     * @param province   省
      * @param city       市
      * @param duty       工作职责
      * @param requirement   工作要求

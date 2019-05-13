@@ -8,7 +8,6 @@
         <result column="need_person" property="needPerson" jdbcType="INTEGER" />
         <result column="wages" property="wages" jdbcType="VARCHAR" />
         <result column="work_time" property="workTime" jdbcType="INTEGER" />
-        <result column="province" property="province" jdbcType="VARCHAR" />
         <result column="city" property="city" jdbcType="VARCHAR" />
         <result column="duty" property="duty" jdbcType="VARCHAR" />
         <result column="requirement" property="requirement" jdbcType="VARCHAR" />
@@ -37,7 +36,6 @@
                              need_person = #{work.needPerson}
                              wages = #{work.wages}
                              work_time = #{work.workTime}
-                             province = #{work.province}
                              city = #{work.city}
                              duty = #{work.duty}
                              requirement = #{work.requirement}
@@ -48,11 +46,10 @@
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
-        select * from work where province = #{province}
+        select * from work where identity  = #{identity}
         <if test="city != null">
             and city = #{city}
         </if>
-        and identity  = #{identity}
         and status = 1
     </select>
 

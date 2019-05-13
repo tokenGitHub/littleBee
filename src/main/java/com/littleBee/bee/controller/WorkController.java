@@ -19,7 +19,6 @@ public class WorkController {
 
     /**
      *
-     * @param province 省份
      * @param city 城市
      * @param identity  工作类型（0兼职，1全职）
      * @return 返回对应城市的所有对应类型的职位
@@ -27,7 +26,6 @@ public class WorkController {
     @PostMapping("listWorkByPositionAndIdentity")
     public Object listWorkByPositionAndIdentity(@RequestBody ListWorkByPositionAndIdentityData listWorkByPositionAndIdentityData){
         List<Work> workList = workService.listWorkByPositionAndIdentity(
-                listWorkByPositionAndIdentityData.getProvince(),
                 listWorkByPositionAndIdentityData.getCity(),
                 listWorkByPositionAndIdentityData.getIdentity()
         );

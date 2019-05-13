@@ -17,8 +17,8 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     @Transactional
-    public List<Work> listWorkByPositionAndIdentity(String province, String city, int identity){
-        return workDao.listWorkByPositionAndIdentity(province, city, identity);
+    public List<Work> listWorkByPositionAndIdentity(String city, int identity){
+        return workDao.listWorkByPositionAndIdentity(city, identity);
     }
 
     @Override
