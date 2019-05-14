@@ -27,16 +27,16 @@ public class BusinessController {
 
     /**
      *
-     * @param userName 用户名
-     * @param companyName   公司名
-     * @param industry      所属行业
-     * @param companyIntroduce  公司介绍
-     * @param password      密码
-     * @param email         公司邮箱
-     * @param realName      用户真实姓名
-     * @param tele          公司电话
-     * @param sex           注册人性别
-     * @param verification  验证码
+       userName 用户名
+       companyName   公司名
+       industry      所属行业
+       companyIntroduce  公司介绍
+       password      密码
+       email         公司邮箱
+       realName      用户真实姓名
+       tele          公司电话
+       sex           注册人性别
+       verification  验证码
      * @return  返回公司所有信息
      */
     @PostMapping("register")
@@ -53,18 +53,18 @@ public class BusinessController {
 
     /**
      *
-     * @param userId     发布者id，来自header
-     * @param identity   职位类型（0兼职，1全职）
-     * @param needPerson 需要人数
-     * @param wages      工资
-     * @param workTime   工作时间
-     * @param city       市
-     * @param duty       工作职责
-     * @param requirement   工作要求
-     * @param contacts      联系人
-     * @param tele          联系电话
-     * @param remarks       备注
-     * @param workName       备注
+       userId     发布者id，来自header
+       identity   职位类型（0兼职，1全职）
+       needPerson 需要人数
+       wages      工资
+       workTime   工作时间
+       city       市
+       duty       工作职责
+       requirement   工作要求
+       contacts      联系人
+       tele          联系电话
+       remarks       备注
+       workName       备注
      * @return  求职信息是否发布成功
      */
     @PostMapping("releaseFullTimeWork")
@@ -81,8 +81,8 @@ public class BusinessController {
 
     /**
      *
-     * @param userId    商家id
-     * @param identity  职位类型 工作类型（0兼职，1全职）
+       userId    商家id
+       identity  职位类型 工作类型（0兼职，1全职）
      * @return  返回该商家发布的所有对应职业类型的职位
      */
     @PostMapping("listAllReleaseWork")
@@ -100,8 +100,8 @@ public class BusinessController {
 
     /**
      *
-     * @param userId 商家id
-     * @param workId 职位id
+       userId 商家id
+       workId 职位id
      * @return  返回该商家发布的对应职位，的所有报名人的信息
      */
     @PostMapping("listPersonForWork")

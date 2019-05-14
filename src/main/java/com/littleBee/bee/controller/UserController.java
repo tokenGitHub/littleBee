@@ -43,13 +43,13 @@ public class UserController {
 
     /**
      *
-     * @param userName 用户名
-     * @param password 密码
-     * @param email    邮箱地址
-     * @param realName 真实姓名
-     * @param tele     电话号码
-     * @param sex      用户性别（0男，1女）
-     * @param verification  验证码，通过邮件发送到用户邮箱
+       userName 用户名
+       password 密码
+       email    邮箱地址
+       realName 真实姓名
+       tele     电话号码
+       sex      用户性别（0男，1女）
+       verification  验证码，通过邮件发送到用户邮箱
      * @return         用户完整信息
      */
     @PostMapping("register")
@@ -65,8 +65,8 @@ public class UserController {
 
     /**
      *
-     * @param userName 用户名
-     * @param password 密码
+       userName 用户名
+       password 密码
      * @return  成功返回： 用户 id，用户 token 码
      *          失败返回： 错误信息
      */
@@ -86,7 +86,7 @@ public class UserController {
 
     /**
      *
-     * @param toAddress 接收验证码的邮箱地址
+       toAddress 接收验证码的邮箱地址
      * @return 成功返回OK，失败返回错误信息
      */
     @PostMapping("verification")
@@ -105,7 +105,7 @@ public class UserController {
 
     /**
      *
-     * @param userId 用户id，来自 header
+       userId 用户id，来自 header
      * @return 返回好友申请列表
      */
     @PostMapping("listFriendByUserId")
@@ -120,8 +120,8 @@ public class UserController {
 
     /**
      *
-     * @param realName 用户真实姓名 为空时填写空串
-     * @param tele     用户电话号码 为空时填写空串
+       realName 用户真实姓名 为空时填写空串
+       tele     用户电话号码 为空时填写空串
      * @return         返回用户所有信息
      */
     @PostMapping("findUser")
@@ -141,9 +141,9 @@ public class UserController {
 
     /**
      *
-     * @param userId     用户id
-     * @param friendId   好友的用户id
-     * @param context    验证消息
+       userId     用户id
+       friendId   好友的用户id
+       context    验证消息
      * @return           返回请求是否发送成功
      */
     @PostMapping("addFriend")
@@ -167,8 +167,8 @@ public class UserController {
 
     /**
      *
-     * @param id  好友请求的id
-     * @param agreeOrNot    是否同意（1同意，2不同意）
+       id  好友请求的id
+       agreeOrNot    是否同意（1同意，2不同意）
      * @return   返回是否成功
      */
     @PostMapping("friendVerification")
@@ -184,7 +184,7 @@ public class UserController {
 
     /**
      *
-     * @param userId 用户id，来自请求头
+       userId 用户id，来自请求头
      * @return  返回该用户所有好友请求
      */
     @PostMapping("listFriendRequest")
@@ -195,8 +195,8 @@ public class UserController {
 
     /**
      *
-     * @param userId 发送用户id，来自header
-     * @param targetUserId  接收用户id
+       userId 发送用户id，来自header
+       targetUserId  接收用户id
      * @return 返回此两用户的所有聊天记录
      */
     @PostMapping("listUserChatMessage")
@@ -207,9 +207,9 @@ public class UserController {
 
     /**
      *
-     * @param userId 发送消息的用户id，来自header
-     * @param targetUserId  接收消息的用户id
-     * @param context       所要发送的消息
+       userId 发送消息的用户id，来自header
+       targetUserId  接收消息的用户id
+       context       所要发送的消息
      * @return  返回消息发送是否成功
      */
     @PostMapping("sendMessage")

@@ -19,8 +19,8 @@ public class WorkController {
 
     /**
      *
-     * @param city 城市
-     * @param identity  工作类型（0兼职，1全职）
+       city 城市
+       identity  工作类型（0兼职，1全职）
      * @return 返回对应城市的所有对应类型的职位
      */
     @PostMapping("listWorkByPositionAndIdentity")
@@ -50,7 +50,7 @@ public class WorkController {
 
     /**
      *
-     * @param userId 普通用户id
+       userId 普通用户id
      * @return 返回该用户参加过的所有工作
      */
     @PostMapping("listWorkRecord")
@@ -62,7 +62,7 @@ public class WorkController {
 
     /**
      *
-     * @param workName 工作名称
+     * workName 工作名称
      * @return 返回所有跟 workName 相关的工作
      */
     @PostMapping("listWorkByWorkName")
