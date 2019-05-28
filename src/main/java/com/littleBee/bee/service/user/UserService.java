@@ -12,4 +12,5 @@ public interface UserService {
     List<User> listFriendByUserId(int id);
     List<User> listUserByUserTele(String tele);
     List<User> listUserByRealName(String realName);
+    void examine(int userId, int status);
 }

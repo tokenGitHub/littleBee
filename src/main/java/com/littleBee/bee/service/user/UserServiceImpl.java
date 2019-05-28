@@ -59,8 +59,16 @@ public class UserServiceImpl implements UserService {
         return userDao.listUserByUserTele(tele);
     }
 
+    @Override
+    @Transactional
     public List<User> listUserByRealName(String realName){
         return userDao.listUserByRealName(realName);
+    }
+
+    @Override
+    @Transactional
+    public void examine(int userId, int status){
+        userDao.examine(userId, status);
     }
 
 }

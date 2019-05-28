@@ -53,4 +53,8 @@
     <select id="listUserByRealName" resultMap="BaseResultMap">
         select * from user where real_name  = #{realName}
     </select>
+
+    <update id="examine">
+        update user set status = #{status} and id = #{userId}
+    </update>
 </mapper>

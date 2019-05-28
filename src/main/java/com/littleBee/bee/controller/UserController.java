@@ -227,6 +227,12 @@ public class UserController {
         return JsonUtils.getSuccessResult(null);
     }
 
+    @PostMapping("examine")
+    public Object examine(@RequestBody Examine examine){
+        userService.examine(examine.getUserId(), examine.getStatus());
+        return JsonUtils.getSuccessResult("审核成功");
+    }
+
     private User parseUserByData(RegisterData registerData){
         User user = new User();
         user.setUserName(registerData.getUserName());
