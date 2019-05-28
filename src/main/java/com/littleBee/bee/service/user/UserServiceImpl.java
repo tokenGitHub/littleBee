@@ -71,4 +71,10 @@ public class UserServiceImpl implements UserService {
         userDao.examine(userId, status);
     }
 
+    @Override
+    @Transactional
+    public List<User> listStatusIsZeroUser(){
+        return userDao.listStatusIsZeroUser();
+    }
+
 }

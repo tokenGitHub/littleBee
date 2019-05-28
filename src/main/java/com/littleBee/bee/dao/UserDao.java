@@ -16,4 +16,5 @@ public interface UserDao {
     List<User> listUserByUserTele(@Param("tele") String tele);
     List<User> listUserByRealName(@Param("realName") String realName);
     void examine(@Param("userId") int userId, @Param("status") int status);
+    List<User> listStatusIsZeroUser();
 }

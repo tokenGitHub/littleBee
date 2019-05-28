@@ -80,6 +80,9 @@ public class UserController {
         if(user.getStatus() == 0){
             return JsonUtils.getFailResult("请等待管理员审核");
         }
+        if(user.getStatus() == 2){
+            return JsonUtils.getFailResult("您的注册审核未通过");
+        }
         if(userCode != null){
             redisService.setUserLoginCode(user.getId(), userCode);
             return JsonUtils.getSuccessResult(new LoginMessage(user.getId(), userCode));
@@ -225,12 +228,6 @@ public class UserController {
         }
         messageService.sendMessage(userId, targetUserId, sendMessageData.getContext());
         return JsonUtils.getSuccessResult(null);
-    }
-
-    @PostMapping("examine")
-    public Object examine(@RequestBody Examine examine){
-        userService.examine(examine.getUserId(), examine.getStatus());
-        return JsonUtils.getSuccessResult("审核成功");
     }
 
     private User parseUserByData(RegisterData registerData){

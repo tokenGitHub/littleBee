@@ -61,6 +61,7 @@ public class LoginFilter implements Filter {
         list.add("verification");
         list.add("login");
         list.add("register");
+        list.add("admin");
 
         for( String data : list){
             if(uri.contains(data)){
