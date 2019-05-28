@@ -18,4 +18,5 @@ public class RegisterData {
     private String industry;
     private String companyIntroduce;
     private String verification;
+    private String file;
 }

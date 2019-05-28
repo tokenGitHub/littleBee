@@ -11,6 +11,7 @@
         <result column="companyName" property="companyName" jdbcType="VARCHAR" />
         <result column="industry" property="industry" jdbcType="VARCHAR" />
         <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
+        <result column="file" property="file" jdbcType="VARCHAR" />
     </resultMap>
 
     <insert id="insertUser">
@@ -23,7 +24,9 @@
                               company_name = #{user.companyName},
                               industry = #{user.industry},
                               sex = #{user.sex},
-                              company_introduce = #{user.companyIntroduce}
+                              company_introduce = #{user.companyIntroduce},
+                              file = #{user.file},
+                              create_time=#{user.createDate}
     </insert>
 
     <select id="userLogin" resultType="String">

@@ -3,6 +3,8 @@ package com.littleBee.bee.domain;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.Date;
+
 @Data
 @EntityScan
 public class User {
@@ -17,4 +19,6 @@ public class User {
     private String companyName;
     private String industry;
     private String companyIntroduce;
+    private String file;
+    private Date createDate;
 }

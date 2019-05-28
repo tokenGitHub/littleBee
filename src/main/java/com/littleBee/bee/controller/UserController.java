@@ -14,6 +14,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,12 +56,12 @@ public class UserController {
     @PostMapping("register")
     public Object userRegister(@RequestBody RegisterData registerData){
         User user = parseUserByData(registerData);
-        if(registerData.getVerification().equals(redisService.getEmailVerificationCode(user.getEmail()))) {
+//        if(registerData.getVerification().equals(redisService.getEmailVerificationCode(user.getEmail()))) {
             userService.insertUser(user);
-            return JsonUtils.getSuccessResult(user);
-        }else {
-            return JsonUtils.getFailResult("Exception : 验证码输入错误，或者已经过期");
-        }
+            return JsonUtils.getSuccessResult("注册成功，请等待后台审核");
+//        }else {
+//            return JsonUtils.getFailResult("Exception : 验证码输入错误，或者已经过期");
+//        }
     }
 
     /**
@@ -231,7 +232,13 @@ public class UserController {
         user.setRealName(registerData.getRealName());
         user.setTele(registerData.getTele());
         user.setSex(registerData.getSex());
-        user.setIdentity(0);
+        user.setCompanyIntroduce(registerData.getCompanyIntroduce());
+        user.setCompanyName(registerData.getCompanyName());
+        user.setIdentity(registerData.getIdentity());
+        user.setFile(registerData.getFile());
+        user.setIndustry(registerData.getIndustry());
+        Date date = new Date();
+        user.setCreateDate(date);
         return user;
     }
 }
