@@ -12,6 +12,7 @@
         <result column="industry" property="industry" jdbcType="VARCHAR" />
         <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
         <result column="file" property="file" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
     </resultMap>
 
     <insert id="insertUser">

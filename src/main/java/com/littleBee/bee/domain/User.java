@@ -21,4 +21,5 @@ public class User {
     private String companyIntroduce;
     private String file;
     private Date createDate;
+    private int status;
 }

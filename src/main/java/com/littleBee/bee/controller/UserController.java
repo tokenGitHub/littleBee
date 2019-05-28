@@ -77,8 +77,11 @@ public class UserController {
         String password = paraUser.getPassword();
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
+        if(user.getStatus() == 0){
+            return JsonUtils.getFailResult("请等待管理员审核");
+        }
         if(userCode != null){
-            redisService.setUserLoginCode(userName, userCode);
+            redisService.setUserLoginCode(user.getId(), userCode);
             return JsonUtils.getSuccessResult(new LoginMessage(user.getId(), userCode));
         }else{
             return JsonUtils.getFailResult("Exception : 账号或密码错误");
