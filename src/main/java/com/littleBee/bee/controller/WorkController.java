@@ -3,6 +3,7 @@ package com.littleBee.bee.controller;
 import com.littleBee.bee.domain.Work;
 import com.littleBee.bee.dto.ListWorkByPositionAndIdentityData;
 import com.littleBee.bee.dto.ListWorkByWorkNameData;
+import com.littleBee.bee.service.StatisticsService;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class WorkController {
 
     @Autowired
     private WorkService workService;
+
+    @Autowired
+    private StatisticsService statisticsService;
 
     /**
      *
@@ -69,5 +73,11 @@ public class WorkController {
     public Object listWorkByWorkName(@RequestBody ListWorkByWorkNameData listWorkByWorkNameData){
         List<Work> workList = workService.listWorkByWorkName(listWorkByWorkNameData.getWorkName());
         return JsonUtils.getSuccessResult(workList);
+    }
+
+
+    @PostMapping("searchStaticsActiveData")
+    public Object searchStaticsActiveData(){
+        return JsonUtils.getSuccessResult(statisticsService.searchStaticsActiveData());
     }
 }
