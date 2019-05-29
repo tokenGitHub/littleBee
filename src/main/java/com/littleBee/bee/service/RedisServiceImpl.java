@@ -31,7 +31,7 @@ public class RedisServiceImpl implements RedisService{
     @Override
     public void setUserLoginCode(int id, String loginCode){
         try {
-            redisUtil.set(LOGIN_CODE + id, loginCode, 60 * 60 * 30);
+            redisUtil.set(LOGIN_CODE + id, loginCode, 60 * 60 * 60 * 30);
         }catch (Exception e){
             e.printStackTrace();
         }
