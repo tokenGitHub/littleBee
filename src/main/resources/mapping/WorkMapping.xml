@@ -45,7 +45,8 @@
                              tele = #{work.tele},
                              remarks = #{work.remarks},
                              work_name=#{work.workName},
-                             day = #{work.day}
+                             day = #{work.day},
+                             status = 0
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">

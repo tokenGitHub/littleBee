@@ -91,7 +91,7 @@ public class BusinessController {
     public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestBody ListAllReleaseWorkData listAllReleaseWorkData){
         User user = userService.selectUserById(userId);
         if(user == null ){
-            return JsonUtils.getFailResult(new Exception("用户不存在"));
+            return JsonUtils.getFailResult("用户不存在");
         }else if(user.getIdentity() != 1){
             return JsonUtils.getFailResult("用户身份不正确");
         }
