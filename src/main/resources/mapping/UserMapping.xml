@@ -8,9 +8,9 @@
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="real_name" property="realName" jdbcType="VARCHAR" />
         <result column="identity" property="identity" jdbcType="INTEGER" />
-        <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
         <result column="industry" property="industry" jdbcType="VARCHAR" />
-        <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
+        <result column="company_introduce" property="companyIntroduce" jdbcType="VARCHAR" />
         <result column="file" property="file" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="VARCHAR" />
     </resultMap>
@@ -58,7 +58,7 @@
         update user set status = #{status} and id = #{userId}
     </update>
 
-    <select id="listStatusIsZeroUser" resultMap="BaseResultMap">
-        select * from user where status = 0 or status = 2 order by status;
+    <select id="listAllCompanyUser" resultMap="BaseResultMap">
+        select * from user where id != 26 and identity = 1 order by status;
     </select>
 </mapper>

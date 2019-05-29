@@ -73,8 +73,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<User> listStatusIsZeroUser(){
-        return userDao.listStatusIsZeroUser();
+    public List<User> listAllCompanyUser(){
+        List<User> list = userDao.listAllCompanyUser();
+        for(User user : list){
+
+        }
+        return list;
     }
 
 }

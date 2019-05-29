@@ -21,8 +21,8 @@ public class AdminController {
         return JsonUtils.getSuccessResult("审核成功");
     }
 
-    @PostMapping("listStatusIsZeroUser")
-    public Object listStatusIsZeroUser(){
-        return userService.listStatusIsZeroUser();
+    @PostMapping("listAllCompanyUser")
+    public Object listAllCompanyUser(){
+        return JsonUtils.getSuccessResult(userService.listAllCompanyUser());
     }
 }

@@ -24,6 +24,7 @@ public class LoginFilter implements Filter {
         list.add("verification");
         list.add("login");
         list.add("register");
+        list.add("admin");
     }
 
     @Override
@@ -32,6 +33,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         log.info(request.getRequestURI());
         //以下解决跨域问题
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
