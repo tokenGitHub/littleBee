@@ -59,6 +59,6 @@
     </update>
 
     <select id="listStatusIsZeroUser" resultMap="BaseResultMap">
-        select * from user where status = 0;
+        select * from user where status = 0 or status = 2 order by status;
     </select>
 </mapper>

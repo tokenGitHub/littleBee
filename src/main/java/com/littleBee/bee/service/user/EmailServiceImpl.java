@@ -21,7 +21,7 @@ public class EmailServiceImpl implements EmailService{
         String verification = randomStr();
         message.setFrom("littlebeeyd@qq.com");
         message.setTo(toAddress);
-        message.setSubject("主题：小蜜蜂验证");
+        message.setSubject("主题：大象职呗验证");
         message.setText("您的验证码为：" + verification);
         mailSender.send(message);
         return verification;

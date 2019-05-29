@@ -15,12 +15,15 @@ import java.util.List;
 @Log
 @WebFilter
 public class LoginFilter implements Filter {
+    private static List<String> list = new ArrayList<>();
     @Autowired
-    RedisService redisService;
+    private RedisService redisService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        list.add("verification");
+        list.add("login");
+        list.add("register");
     }
 
     @Override
@@ -28,7 +31,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         log.info(request.getRequestURI());
-        //以下三行解决跨域问题
+        //以下解决跨域问题
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
@@ -57,12 +60,6 @@ public class LoginFilter implements Filter {
     }
 
     private boolean whiteList(String uri){
-        List<String> list = new ArrayList<>();
-        list.add("verification");
-        list.add("login");
-        list.add("register");
-        list.add("admin");
-
         for( String data : list){
             if(uri.contains(data)){
                 return true;

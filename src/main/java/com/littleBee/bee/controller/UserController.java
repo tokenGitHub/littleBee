@@ -75,13 +75,15 @@ public class UserController {
     public Object login(@RequestBody User paraUser){
         String userName = paraUser.getUserName();
         String password = paraUser.getPassword();
+
+        if(userName == null || password == null){
+            return JsonUtils.getFailResult("用户名或密码不能为空");
+        }
         String userCode = userService.userLogin(userName, password);
         User user = userService.selectUserByUserName(userName);
-        if(user.getStatus() == 0){
-            return JsonUtils.getFailResult("请等待管理员审核");
-        }
-        if(user.getStatus() == 2){
-            return JsonUtils.getFailResult("您的注册审核未通过");
+        String userCheck = checkUser(user);
+        if(!userCheck.isEmpty()){
+            return JsonUtils.getFailResult(userCheck);
         }
         if(userCode != null){
             redisService.setUserLoginCode(user.getId(), userCode);
@@ -91,6 +93,18 @@ public class UserController {
         }
     }
 
+    private String checkUser(User user){
+        if(user == null){
+            return "用户不存在";
+        }
+        if(user.getStatus() == 0){
+            return "请等待管理员审核";
+        }
+        if(user.getStatus() == 2){
+            return "您的注册审核未通过";
+        }
+        return "";
+    }
     /**
      *
        toAddress 接收验证码的邮箱地址
