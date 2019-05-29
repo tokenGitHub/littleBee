@@ -17,6 +17,7 @@
         <result column="status" property="status" jdbcType="INTEGER" />
         <result column="work_name" property="workName" jdbcType="VARCHAR" />
         <result column="day" property="day" jdbcType="INTEGER" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="user" type="com.littleBee.bee.domain.User" >
@@ -30,6 +31,7 @@
         <result column="industry" property="industry" jdbcType="VARCHAR" />
         <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
         <result column="day" property="day" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />
     </resultMap>
 
     <insert id="saveWork">
@@ -62,7 +64,7 @@
     </select>
 
     <select id="listAllWork" resultMap="BaseResultMap">
-        select * from work where status = 1
+        select work.*, user.company_name company_name from work ,user where user.id = work.user_id
     </select>
 
     <select id="listWorkRecord" resultMap="BaseResultMap">

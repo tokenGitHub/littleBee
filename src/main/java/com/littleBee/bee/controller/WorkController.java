@@ -46,11 +46,6 @@ public class WorkController {
         return JsonUtils.getSuccessResult(workList);
     }
 
-    @PostMapping("listAllWork")
-    public Object listAllWork(){
-        List<Work> workList = workService.listAllWork();
-        return JsonUtils.getSuccessResult(workList);
-    }
 
     /**
      *

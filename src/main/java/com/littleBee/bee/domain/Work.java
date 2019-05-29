@@ -21,4 +21,5 @@ public class Work {
     private String remarks;
     private int day;
     private int status;
+    private String companyName;
 }
