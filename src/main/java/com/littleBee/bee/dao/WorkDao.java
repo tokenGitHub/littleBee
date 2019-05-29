@@ -18,4 +18,7 @@ public interface WorkDao {
     List<Work> listAllReleaseWorkByUserIdAndIdentity(@Param("userId") int userId, @Param("identity") int identity);
     List<User> listUserByWorkId(@Param("workId") int workId);
     List<Work> listWorkByWorkName(@Param("workName") String workName);
+
+    List<Integer> listPartTimeJobData();
+    int selectPartTimeJobStartData();
 }

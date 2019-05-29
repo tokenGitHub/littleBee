@@ -17,4 +17,8 @@ public interface UserDao {
     List<User> listUserByRealName(@Param("realName") String realName);
     void examine(@Param("userId") int userId, @Param("status") int status);
     List<User> listStatusIsZeroUser();
+    List<Integer> listUserActive();
+    int selectUserStartData();
+    List<Integer> listBusinessActive();
+    int selectBusinessStartData();
 }
