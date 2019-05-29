@@ -46,13 +46,12 @@ public class LoginFilter implements Filter {
         String token = request.getHeader("token");
         String userId = request.getHeader("userId");
 
-
         if(token == null || userId == null){
-            servletResponse.getWriter().println(new Exception("未登录"));
+            servletResponse.getWriter().println("未登录");
         }else{
             String redisUserCode = redisService.getUserLoginCode(userId);
             if(redisUserCode == null || !redisUserCode.equals(token)){
-                servletResponse.getWriter().println(new Exception("登录过期或登录信息错误"));
+                servletResponse.getWriter().println("登录过期或登录信息错误");
             }else{
                 filterChain.doFilter(servletRequest, servletResponse);
             }

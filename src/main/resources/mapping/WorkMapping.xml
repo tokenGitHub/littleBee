@@ -16,6 +16,7 @@
         <result column="remarks" property="remarks" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="INTEGER" />
         <result column="work_name" property="workName" jdbcType="VARCHAR" />
+        <result column="day" property="day" jdbcType="INTEGER" />
     </resultMap>
 
     <resultMap id="user" type="com.littleBee.bee.domain.User" >
@@ -28,21 +29,23 @@
         <result column="companyName" property="companyName" jdbcType="VARCHAR" />
         <result column="industry" property="industry" jdbcType="VARCHAR" />
         <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
+        <result column="day" property="day" jdbcType="INTEGER" />
     </resultMap>
 
     <insert id="saveWork">
         insert into work set user_id = #{work.userId},
-                             identity = #{work.identity}
-                             need_person = #{work.needPerson}
-                             wages = #{work.wages}
-                             work_time = #{work.workTime}
-                             city = #{work.city}
-                             duty = #{work.duty}
-                             requirement = #{work.requirement}
-                             contacts = #{work.contacts}
-                             tele = #{work.tele}
-                             remarks = #{work.remarks}
-                             work_name=#{work.workName}
+                             identity = #{work.identity},
+                             need_person = #{work.needPerson},
+                             wages = #{work.wages},
+                             work_time = #{work.workTime},
+                             city = #{work.city},
+                             duty = #{work.duty},
+                             requirement = #{work.requirement},
+                             contacts = #{work.contacts},
+                             tele = #{work.tele},
+                             remarks = #{work.remarks},
+                             work_name=#{work.workName},
+                             day = #{work.day}
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">

@@ -19,5 +19,6 @@ public class Work {
     private String contacts;
     private String tele;
     private String remarks;
+    private int day;
     private int status;
 }

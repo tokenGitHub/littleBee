@@ -64,7 +64,9 @@ public class BusinessController {
        contacts      联系人
        tele          联系电话
        remarks       备注
-       workName       备注
+       workName       工作名称
+
+       day         工作天数
      * @return  求职信息是否发布成功
      */
     @PostMapping("releaseFullTimeWork")
@@ -82,7 +84,7 @@ public class BusinessController {
     /**
      *
        userId    商家id
-       identity  职位类型 工作类型（0兼职，1全职）
+       identity  职位类型 工作类型（0 兼职，1 全职）
      * @return  返回该商家发布的所有对应职业类型的职位
      */
     @PostMapping("listAllReleaseWork")
