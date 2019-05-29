@@ -22,4 +22,5 @@ public class Work {
     private int day;
     private int status;
     private String companyName;
+    private int actualNumber;
 }

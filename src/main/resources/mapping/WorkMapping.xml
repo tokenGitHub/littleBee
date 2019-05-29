@@ -18,6 +18,7 @@
         <result column="work_name" property="workName" jdbcType="VARCHAR" />
         <result column="day" property="day" jdbcType="INTEGER" />
         <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+        <result column="actual_number" property="actualNumber" jdbcType="INTEGER" />
     </resultMap>
 
     <resultMap id="user" type="com.littleBee.bee.domain.User" >
@@ -72,7 +73,19 @@
     </select>
 
     <select id="listAllReleaseWorkByUserIdAndIdentity" resultMap="BaseResultMap">
-        select * from work where user_id = #{userId} and identity = #{identity} and status = 1
+        select work.*,count(work_record.id) actualNumber, user.company_name company_name
+        from work
+            left join work_record
+            on work_record.work_id = work.id
+            join user
+            on work.user_id = user.id
+        where
+            work.user_id = #{userId}
+            and
+            work.identity = #{identity}
+            and
+            work.status = 1
+            group by work.id
     </select>
 
     <select id="listUserByWorkId" resultMap="user">
