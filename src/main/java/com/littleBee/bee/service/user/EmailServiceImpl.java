@@ -27,6 +27,18 @@ public class EmailServiceImpl implements EmailService{
         return verification;
     }
 
+    @Override
+    public String sendSimpleMail(String toAddress , String context) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        String verification = randomStr();
+        message.setFrom("littlebeeyd@qq.com");
+        message.setTo(toAddress);
+        message.setSubject("主题：大象职呗验证");
+        message.setText(context);
+        mailSender.send(message);
+        return verification;
+    }
+
 //  生成随机的验证码
     private String randomStr(){
         String result = "";

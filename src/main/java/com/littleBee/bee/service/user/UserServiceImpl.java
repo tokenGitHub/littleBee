@@ -16,6 +16,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     @Transactional
     public void insertUser(User user){
@@ -68,6 +71,19 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void examine(int userId, int status){
+        User user = userDao.selectUserById(userId);
+        String context = "";
+        if(status == 1){
+            context = "审核已通过,祝您工作顺利";
+        }
+        if(status == 2){
+            context = "审核不通过，请重新注册";
+        }
+        try {
+            emailService.sendSimpleMail(user.getEmail(), context);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         userDao.examine(userId, status);
     }
 
@@ -75,10 +91,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<User> listAllCompanyUser(){
         List<User> list = userDao.listAllCompanyUser();
-        for(User user : list){
-
-        }
         return list;
     }
-
 }

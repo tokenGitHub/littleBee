@@ -18,7 +18,7 @@ public class AdminController {
     @PostMapping("examine")
     public Object examine(@RequestBody Examine examine){
         userService.examine(examine.getUserId(), examine.getStatus());
-        return JsonUtils.getSuccessResult("审核成功");
+        return JsonUtils.getSuccessResult("审核成功，已经通过邮件告知用户");
     }
 
     @PostMapping("listAllCompanyUser")
