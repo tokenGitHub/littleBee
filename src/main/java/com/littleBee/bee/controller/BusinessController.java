@@ -9,11 +9,13 @@ import com.littleBee.bee.service.RedisService;
 import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Log
 @RestController
 @RequestMapping("business")
 public class BusinessController {
@@ -88,14 +90,15 @@ public class BusinessController {
      * @return  返回该商家发布的所有对应职业类型的职位
      */
     @PostMapping("listAllReleaseWork")
-    public Object listAllReleaseWork(@RequestHeader("userId") int userId, @RequestBody ListAllReleaseWorkData listAllReleaseWorkData){
-        User user = userService.selectUserById(userId);
+    public Object listAllReleaseWork(@RequestBody ListAllReleaseWorkData listAllReleaseWorkData){
+        User user = userService.selectUserById(listAllReleaseWorkData.getUserId());
         if(user == null ){
             return JsonUtils.getFailResult("用户不存在");
         }else if(user.getIdentity() != 1){
             return JsonUtils.getFailResult("用户身份不正确");
         }
-        List<Work> workList = workService.listAllReleaseWorkByUserIdAndIdentity(userId, listAllReleaseWorkData.getIdentity());
+        log.info("userId : " + user.getId() + " , identity : " + listAllReleaseWorkData.getIdentity());
+        List<Work> workList = workService.listAllReleaseWorkByUserIdAndIdentity(listAllReleaseWorkData.getUserId(), listAllReleaseWorkData.getIdentity());
         return JsonUtils.getSuccessResult(workList);
     }
 

@@ -72,7 +72,7 @@
     </select>
 
     <select id="listAllReleaseWorkByUserIdAndIdentity" resultMap="BaseResultMap">
-        select * from work where user_id = #{userId} and identity = #{identity}
+        select * from work where user_id = #{userId} and identity = #{identity} and status = 1
     </select>
 
     <select id="listUserByWorkId" resultMap="user">
