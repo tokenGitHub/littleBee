@@ -73,12 +73,12 @@ public class BusinessController {
     public Object releaseFullTimeWork(@RequestHeader("userId") int userId, @RequestBody Work work){
         User user = userService.selectUserById(userId);
         if(user == null){
-            return JsonUtils.getFailResult(new Exception("用户不存在"));
+            return JsonUtils.getFailResult("用户不存在");
         }else if(user.getIdentity() != 1){
-            return JsonUtils.getFailResult(new Exception("只有商家才能发布招聘信息"));
+            return JsonUtils.getFailResult("只有商家才能发布招聘信息");
         }
         workService.saveWork(work);
-        return JsonUtils.getSuccessResult("职位信息发布成功");
+        return JsonUtils.getSuccessResult("职位信息发布成功，审核中");
     }
 
     /**
