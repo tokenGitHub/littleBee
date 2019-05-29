@@ -55,7 +55,7 @@
     </select>
 
     <update id="examine">
-        update user set status = #{status} and id = #{userId}
+        update user set status = #{status} where id = #{userId}
     </update>
 
     <select id="listAllCompanyUser" resultMap="BaseResultMap">

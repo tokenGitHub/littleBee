@@ -2,6 +2,7 @@ package com.littleBee.bee.service.user;
 
 import com.littleBee.bee.dao.UserDao;
 import com.littleBee.bee.domain.User;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.util.DigestUtils;
 import java.sql.Date;
 import java.util.List;
 
+@Log
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
         try {
             emailService.sendSimpleMail(user.getEmail(), context);
         }catch (Exception e){
-            e.printStackTrace();
+            log.info("examine : 通知邮件发送失败");
         }
         userDao.examine(userId, status);
     }
