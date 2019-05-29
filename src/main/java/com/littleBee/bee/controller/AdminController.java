@@ -2,6 +2,7 @@ package com.littleBee.bee.controller;
 
 import com.littleBee.bee.domain.Work;
 import com.littleBee.bee.dto.Examine;
+import com.littleBee.bee.dto.ExamineWork;
 import com.littleBee.bee.service.user.UserService;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
@@ -37,5 +38,11 @@ public class AdminController {
     public Object listAllWork(){
         List<Work> workList = workService.listAllWork();
         return JsonUtils.getSuccessResult(workList);
+    }
+
+    @PostMapping("examineWork")
+    public Object examineWork(@RequestBody ExamineWork examineWork){
+        workService.examine(examineWork.getWorkId(), examineWork.getStatus());
+        return JsonUtils.getSuccessResult("工作审核完成");
     }
 }

@@ -15,4 +15,6 @@ public interface WorkService {
     List<Work> listAllReleaseWorkByUserIdAndIdentity(int userId, int identity);
     List<User> listUserByWorkId(int workId);
     List<Work> listWorkByWorkName(String workName);
+
+    void examine(int workId, int status);
 }

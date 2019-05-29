@@ -21,4 +21,5 @@ public interface WorkDao {
 
     List<Integer> listPartTimeJobData();
     int selectPartTimeJobStartData();
+    void examine(@Param("workId") int workId, @Param("status") int status);
 }

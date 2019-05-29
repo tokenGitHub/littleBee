@@ -61,5 +61,10 @@ public class WorkServiceImpl implements WorkService {
         return workDao.listWorkByWorkName(workName);
     }
 
+    @Override
+    @Transactional
+    public void examine(int workId, int status){
+        workDao.examine(workId,status);
+    }
 
 }

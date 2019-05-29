@@ -78,4 +78,8 @@
     <select id="listUserByWorkId" resultMap="user">
         select user.* from user,work_record where user.id = work_record.user_id and work_record.work_id = #{workId}
     </select>
+
+    <update id="examine">
+        update work set status = #{status} where id = #{workId}
+    </update>
 </mapper>
