@@ -133,7 +133,7 @@ public class UserController {
     public Object listFriendByUserId(@RequestHeader("userId") int userId){
         User user = userService.selectUserById(userId);
         if(user == null ){
-            return JsonUtils.getFailResult(new Exception("用户不存在"));
+            return JsonUtils.getFailResult("用户不存在");
         }
         List<User> userList = userService.listFriendByUserId(userId);
         return JsonUtils.getSuccessResult(userList);
