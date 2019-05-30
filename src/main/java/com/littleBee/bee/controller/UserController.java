@@ -236,13 +236,13 @@ public class UserController {
      * @return  返回消息发送是否成功
      */
     @PostMapping("sendMessage")
-    public Object sendMessage(@RequestHeader("userId") int userId, @RequestBody SendMessageData sendMessageData){
+    public Object sendMessage(@RequestBody SendMessageData sendMessageData){
         int targetUserId = sendMessageData.getTargetUserId();
         User user = userService.selectUserById(targetUserId);
         if(user == null){
             return JsonUtils.getFailResult("目标用户不存在");
         }
-        messageService.sendMessage(userId, targetUserId, sendMessageData.getContext());
+        messageService.sendMessage(sendMessageData.getUserId(), targetUserId, sendMessageData.getContext());
         return JsonUtils.getSuccessResult(null);
     }
 

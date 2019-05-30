@@ -11,6 +11,7 @@ import java.util.Date;
 public class Message {
     private int id;
     private int sendUserId;
+    private String sendName;
     private int receiveUserId;
     private String context;
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
