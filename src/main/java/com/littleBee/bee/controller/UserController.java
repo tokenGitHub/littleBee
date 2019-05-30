@@ -175,7 +175,7 @@ public class UserController {
 
         User friend = userService.selectUserById(friendId);
         if(user == null || friend == null){
-            return JsonUtils.getFailResult(new Exception("用户不存在或者要添加的用户不存在"));
+            return JsonUtils.getFailResult("用户不存在或者要添加的用户不存在");
         }
         FriendAddRecord record = new FriendAddRecord();
         record.setContext(context);
