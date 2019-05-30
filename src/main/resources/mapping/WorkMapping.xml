@@ -28,9 +28,9 @@
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="real_name" property="realName" jdbcType="VARCHAR" />
         <result column="identity" property="identity" jdbcType="INTEGER" />
-        <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
         <result column="industry" property="industry" jdbcType="VARCHAR" />
-        <result column="companyIntroduce" property="companyIntroduce" jdbcType="VARCHAR" />
+        <result column="company_introduce" property="companyIntroduce" jdbcType="VARCHAR" />
         <result column="day" property="day" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="INTEGER" />
     </resultMap>
@@ -82,9 +82,7 @@
         where
             work.user_id = #{userId}
             and
-            work.identity = #{identity}
-            and
-            work.status = 1
+            work.identity = #{identity}   
             group by work.id
     </select>
 

@@ -110,11 +110,7 @@ public class BusinessController {
      * @return  返回该商家发布的对应职位，的所有报名人的信息
      */
     @PostMapping("listPersonForWork")
-    public Object listUserForWork(@RequestHeader("userId") int userId, @RequestBody ListPersonForWorkData listPersonForWorkData){
-        User user = userService.selectUserById(userId);
-        if(checkBusiness(user)){
-            return JsonUtils.getFailResult("用户身份错误");
-        }
+    public Object listUserForWork(@RequestBody ListPersonForWorkData listPersonForWorkData){
         List<User> userList = workService.listUserByWorkId(listPersonForWorkData.getWorkId());
         return JsonUtils.getSuccessResult(userList);
     }
