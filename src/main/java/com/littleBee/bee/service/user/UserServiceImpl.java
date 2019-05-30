@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void insertUser(User user){
+        user.setStatus(0);
+        if(user.getIdentity() == 0){
+            user.setStatus(1);
+        }
         userDao.insertUser(user);
     }
 

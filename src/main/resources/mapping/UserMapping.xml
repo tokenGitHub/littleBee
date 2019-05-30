@@ -27,7 +27,8 @@
                               sex = #{user.sex},
                               company_introduce = #{user.companyIntroduce},
                               file = #{user.file},
-                              create_time=#{user.createDate}
+                              create_time=#{user.createDate},
+                              status = #{user.status}
     </insert>
 
     <select id="userLogin" resultType="String">

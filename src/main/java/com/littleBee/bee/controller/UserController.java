@@ -58,6 +58,9 @@ public class UserController {
         User user = parseUserByData(registerData);
 //        if(registerData.getVerification().equals(redisService.getEmailVerificationCode(user.getEmail()))) {
             userService.insertUser(user);
+            if(user.getIdentity() == 0){
+                return JsonUtils.getSuccessResult("注册成功");
+            }
             return JsonUtils.getSuccessResult("注册成功，请等待后台审核");
 //        }else {
 //            return JsonUtils.getFailResult("Exception : 验证码输入错误，或者已经过期");
