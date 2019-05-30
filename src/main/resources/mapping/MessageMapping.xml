@@ -7,6 +7,7 @@
         <result column="receive_user_id" property="receiveUserId" jdbcType="INTEGER" />
         <result column="context" property="context" jdbcType="VARCHAR" />
         <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+        <result column="send_user_name" property="sendName" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <insert id="insertMessage">
@@ -17,15 +18,20 @@
     </insert>
 
     <select id="listUserChatMessage" resultMap="BaseResultMap">
-        select * from message where (
-        send_user_id = #{userId}
-            and
-        receive_user_id = #{targetUserId}
-        ) or (
-        receive_user_id = #{userId}
-        and
-        send_user_id = #{targetUserId}
-        )
+        select message.*, user.real_name send_user_name from  message
+        left join user
+        on user.id = message.send_user_id
+        where
+            (
+                send_user_id = #{userId}
+                and
+                receive_user_id = #{targetUserId}
+            )
+            or (
+                receive_user_id = #{userId}
+                and
+                send_user_id = #{targetUserId}
+            )
         order by send_time
     </select>
 </mapper>
