@@ -221,8 +221,10 @@ public class UserController {
      * @return 返回此两用户的所有聊天记录
      */
     @PostMapping("listUserChatMessage")
-    public Object listUserChatMessage(@RequestHeader("userId") int userId, @RequestBody ListUserChatMessageData listUserChatMessageData){
-        List<Message> messageList = messageService.listUserChatMessage(userId, listUserChatMessageData.getTargetUserId());
+    public Object listUserChatMessage(@RequestBody ListUserChatMessageData listUserChatMessageData){
+        List<Message> messageList = messageService.listUserChatMessage(
+                listUserChatMessageData.getUserId(),
+                listUserChatMessageData.getTargetUserId());
         return  JsonUtils.getSuccessResult(messageList);
     }
 
