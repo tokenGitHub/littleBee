@@ -168,8 +168,8 @@ public class UserController {
      * @return           返回请求是否发送成功
      */
     @PostMapping("addFriend")
-    public Object addFriend(@RequestHeader("userId") int userId,@RequestBody AddFriendData addFriendData){
-        User user = userService.selectUserById(userId);
+    public Object addFriend(@RequestBody AddFriendData addFriendData){
+        User user = userService.selectUserById(addFriendData.getUserId());
         int friendId = addFriendData.getFriendId();
         String context = addFriendData.getContext();
 
@@ -180,7 +180,7 @@ public class UserController {
         FriendAddRecord record = new FriendAddRecord();
         record.setContext(context);
         record.setFriendUserId(friendId);
-        record.setUserId(userId);
+        record.setUserId(addFriendData.getUserId());
         friendAddRecordService.saveRecord(record);
         return JsonUtils.getSuccessResult("好友请求已记录");
     }
