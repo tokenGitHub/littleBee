@@ -73,7 +73,7 @@
     </select>
 
     <select id="listAllReleaseWorkByUserIdAndIdentity" resultMap="BaseResultMap">
-        select work.*,count(work_record.id) actualNumber, user.company_name company_name
+        select work.*,count(work_record.id) actual_number, user.company_name company_name
         from work
             left join work_record
             on work_record.work_id = work.id
