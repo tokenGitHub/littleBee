@@ -133,7 +133,7 @@ public class UserController {
     public Object listFriendByUserId(@RequestHeader("userId") int userId){
         User user = userService.selectUserById(userId);
         if(user == null ){
-            return JsonUtils.getFailResult(new Exception("用户不存在"));
+            return JsonUtils.getFailResult("用户不存在");
         }
         List<User> userList = userService.listFriendByUserId(userId);
         return JsonUtils.getSuccessResult(userList);
@@ -238,7 +238,7 @@ public class UserController {
         int targetUserId = sendMessageData.getTargetUserId();
         User user = userService.selectUserById(targetUserId);
         if(user == null){
-            return JsonUtils.getFailResult(new Exception("目标用户不存在"));
+            return JsonUtils.getFailResult("目标用户不存在");
         }
         messageService.sendMessage(userId, targetUserId, sendMessageData.getContext());
         return JsonUtils.getSuccessResult(null);
