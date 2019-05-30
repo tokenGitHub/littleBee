@@ -209,8 +209,8 @@ public class UserController {
      * @return  返回该用户所有好友请求
      */
     @PostMapping("listFriendRequest")
-    public Object listFriendRequest(@RequestHeader int userId){
-        List list = friendAddRecordService.listFriendAddRecordByUserId(userId);
+    public Object listFriendRequest(@RequestBody ListFriendRequestData listFriendRequestData){
+        List list = friendAddRecordService.listFriendAddRecordByUserId(listFriendRequestData.getUserId());
         return JsonUtils.getSuccessResult(list);
     }
 

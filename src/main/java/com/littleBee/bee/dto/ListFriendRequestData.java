@@ -5,9 +5,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Data
 @EntityScan
-public class FriendRecord {
-    private int id;
+public class ListFriendRequestData {
     private int userId;
-    private String realName;
-    private String context;
 }
