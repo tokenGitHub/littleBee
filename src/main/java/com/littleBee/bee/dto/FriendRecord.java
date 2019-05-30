@@ -10,4 +10,5 @@ public class FriendRecord {
     private int userId;
     private String realName;
     private String context;
+    private int status;
 }

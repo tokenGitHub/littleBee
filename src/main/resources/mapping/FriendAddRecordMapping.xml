@@ -13,6 +13,7 @@
             <result column="user_id" property="userId" jdbcType="INTEGER" />
             <result column="context" property="context" jdbcType="VARCHAR" />
             <result column="real_name" property="realName" jdbcType="VARCHAR" />
+            <result column="status" property="status" jdbcType="INTEGER" />
         </resultMap>
 
     <insert id="insertRecord">
@@ -27,7 +28,7 @@
 
     <select id="listFriendRecordByUserId" resultMap="FriendRecord">
         select
-            friend_add_record.id id,user_id,real_name,context
+            friend_add_record.id id,user_id,real_name,context, friend_add_record.status
         from
             user,friend_add_record
         where
