@@ -99,4 +99,8 @@
     <update id="examine">
         update work set status = #{status} where id = #{workId}
     </update>
+
+    <select id="selectWorkByWorkId" resultMap="BaseResultMap">
+        select * from work where id = #{workId}
+    </select>
 </mapper>

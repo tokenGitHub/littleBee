@@ -57,4 +57,8 @@
             )
         order by send_time
     </select>
+
+    <select id="selectActualByWorkId" resultType="int">
+        select count(id) from work_record where work_id = #{workId}
+    </select>
 </mapper>

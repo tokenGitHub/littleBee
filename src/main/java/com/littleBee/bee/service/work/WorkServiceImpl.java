@@ -74,7 +74,13 @@ public class WorkServiceImpl implements WorkService {
     @Override
     @Transactional
     public void insertWorkRecord(int userId,int workId){
-        workRecordDao.insertWorkRecord(userId,workId);
+        workRecordDao.insertWorkRecord(userId, workId);
+        int actualNumber = workRecordDao.selectActualByWorkId(workId);
+        Work work = workDao.selectWorkByWorkId(workId);
+
+        if(actualNumber == work.getNeedPerson()){
+            workDao.examine(workId, 3);
+        }
     }
 
 }
