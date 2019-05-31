@@ -30,6 +30,10 @@ public class WorkController {
      */
     @PostMapping("listWorkByPositionAndIdentity")
     public Object listWorkByPositionAndIdentity(@RequestBody ListWorkByPositionAndIdentityData listWorkByPositionAndIdentityData){
+        if(listWorkByPositionAndIdentityData.getCity() == null ||
+        listWorkByPositionAndIdentityData.getCity().isEmpty()){
+            listWorkByPositionAndIdentityData.setCity(null);
+        }
         List<Work> workList = workService.listWorkByPositionAndIdentity(
                 listWorkByPositionAndIdentityData.getCity(),
                 listWorkByPositionAndIdentityData.getIdentity()
