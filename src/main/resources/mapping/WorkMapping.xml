@@ -53,14 +53,17 @@
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
-        select work.*,user.company_name company_name from
+        select work.*,user.company_name company_name, count(wor_record.id) actual_number from
         work left join user
         on work.user_id = user.id
+        join work_record
+        on work_record.work_id = work.id
         where work.identity  = #{identity}
         <if test="city != null">
             and city = #{city}
         </if>
         and work.status = 1
+        group by work.id
     </select>
 
     <select id="listAllFullTimeWork" resultMap="BaseResultMap">
