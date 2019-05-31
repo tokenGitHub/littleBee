@@ -3,8 +3,8 @@
 <mapper namespace="com.littleBee.bee.dao.FriendAddRecordDao" >
     <resultMap id="BaseResultMap" type="com.littleBee.bee.domain.FriendAddRecord" >
         <result column="id" property="id" jdbcType="INTEGER" />
-        <result column="userId" property="user_id" jdbcType="INTEGER" />
-        <result column="friendUserId" property="friend_user_id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="friend_user_id" property="friendUserId" jdbcType="INTEGER" />
         <result column="context" property="context" jdbcType="VARCHAR" />
     </resultMap>
 
@@ -37,7 +37,7 @@
             friend_add_record.friend_user_id = #{userId}
     </select>
 
-    <select id="selectFriendAddRecordById" resultType="FriendAddRecord">
+    <select id="selectFriendAddRecordById" resultMap="BaseResultMap">
         select * from friend_add_record where id = #{id}
     </select>
 </mapper>

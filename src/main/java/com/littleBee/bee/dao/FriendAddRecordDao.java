@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface FriendAddRecordDao {
     void insertRecord(@Param("record") FriendAddRecord record);
-    FriendAddRecord selectFriendAddRecordById(@Param("id") int id);
+    List<FriendAddRecord> selectFriendAddRecordById(@Param("id") int id);
     void updateRecord(@Param("record") FriendAddRecord record);
     List<FriendRecord> listFriendRecordByUserId(@Param("userId") int userId);
 }

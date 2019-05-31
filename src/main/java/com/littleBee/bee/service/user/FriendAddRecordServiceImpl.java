@@ -29,7 +29,11 @@ public class FriendAddRecordServiceImpl implements FriendAddRecordService{
     @Override
     @Transactional
     public FriendAddRecord selectFriendAddRecordById(int id){
-        return friendAddRecordDao.selectFriendAddRecordById(id);
+        List<FriendAddRecord> list = friendAddRecordDao.selectFriendAddRecordById(id);
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override

@@ -198,8 +198,9 @@ public class UserController {
     @PostMapping("friendVerification")
     public Object friendVerification(@RequestBody FriendVerificationData friendVerificationData){
         FriendAddRecord record = friendAddRecordService.selectFriendAddRecordById(friendVerificationData.getRecordId());
+        log.info(record.toString());
         if(record == null){
-            return JsonUtils.getFailResult( new Exception("好友请求不存在") );
+            return JsonUtils.getFailResult("好友请求不存在");
         }
 
         friendAddRecordService.saveFriend(record, friendVerificationData.getAgreeOrNot());
