@@ -53,11 +53,14 @@
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
-        select * from work where identity  = #{identity}
+        select work.*,user.company_name company_name from
+        work left join user
+        on work.user_id = user.id
+        where work.identity  = #{identity}
         <if test="city != null">
             and city = #{city}
         </if>
-        and status = 1
+        and work.status = 1
     </select>
 
     <select id="listAllFullTimeWork" resultMap="BaseResultMap">
