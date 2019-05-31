@@ -1,6 +1,7 @@
 package com.littleBee.bee.service.work;
 
 import com.littleBee.bee.dao.WorkDao;
+import com.littleBee.bee.dao.WorkRecordDao;
 import com.littleBee.bee.domain.User;
 import com.littleBee.bee.domain.Work;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class WorkServiceImpl implements WorkService {
 
     @Autowired
     private WorkDao workDao;
+
+    @Autowired
+    private WorkRecordDao workRecordDao;
 
     @Override
     @Transactional
@@ -70,7 +74,7 @@ public class WorkServiceImpl implements WorkService {
     @Override
     @Transactional
     public void insertWorkRecord(int userId,int workId){
-        insertWorkRecord(userId,workId);
+        workRecordDao.insertWorkRecord(userId,workId);
     }
 
 }
