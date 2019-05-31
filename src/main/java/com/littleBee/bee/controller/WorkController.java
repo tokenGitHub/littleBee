@@ -3,6 +3,7 @@ package com.littleBee.bee.controller;
 import com.littleBee.bee.domain.Work;
 import com.littleBee.bee.dto.ListWorkByPositionAndIdentityData;
 import com.littleBee.bee.dto.ListWorkByWorkNameData;
+import com.littleBee.bee.dto.WorkSignUp;
 import com.littleBee.bee.service.StatisticsService;
 import com.littleBee.bee.service.work.WorkService;
 import com.littleBee.bee.utills.JsonUtils;
@@ -74,5 +75,11 @@ public class WorkController {
     @PostMapping("searchStaticsActiveData")
     public Object searchStaticsActiveData(){
         return JsonUtils.getSuccessResult(statisticsService.searchStaticsActiveData());
+    }
+
+    @PostMapping("workSignUp")
+    public Object workSignUp(@RequestBody WorkSignUp workSignUp){
+        workService.insertWorkRecord(workSignUp.getUserId(), workSignUp.getWorkId());
+        return JsonUtils.getSuccessResult("报名成功");
     }
 }

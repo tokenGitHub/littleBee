@@ -67,4 +67,10 @@ public class WorkServiceImpl implements WorkService {
         workDao.examine(workId,status);
     }
 
+    @Override
+    @Transactional
+    public void insertWorkRecord(int userId,int workId){
+        insertWorkRecord(userId,workId);
+    }
+
 }

@@ -17,4 +17,5 @@ public interface WorkService {
     List<Work> listWorkByWorkName(String workName);
 
     void examine(int workId, int status);
+    void insertWorkRecord(int userId,int workId);
 }
