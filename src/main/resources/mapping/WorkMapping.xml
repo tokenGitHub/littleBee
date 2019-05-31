@@ -53,7 +53,7 @@
     </insert>
 
     <select id="listWorkByPositionAndIdentity" resultMap="BaseResultMap">
-        select work.*,user.company_name company_name, count(wor_record.id) actual_number from
+        select work.*,user.company_name company_name, count(work_record.id) actual_number from
         work left join user
         on work.user_id = user.id
         join work_record
